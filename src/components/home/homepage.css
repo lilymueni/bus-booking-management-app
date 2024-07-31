@@ -1,5 +1,6 @@
 .homepage-container {
   font-family: Arial, sans-serif;
+  background-color: rgb(235, 238, 241);
 }
 
 .navbar {
@@ -81,7 +82,7 @@
   text-align: center;
   padding: 2rem;
   color: maroon;
-  font-size: 2.5rem; /* Adjust size as needed */
+  font-size: 40px; 
   font-weight: bold;
   font-family: 'Georgia', serif; /* Fancy font example */
   margin-bottom: 2rem; /* Space below the text */
@@ -94,6 +95,7 @@
   height: 50vh; /* Adjust this height as needed */
   background-color: lightgray; /* Fallback background color */
   text-align: center;
+  font-size: 40px;
   position: relative;
   overflow: hidden; /* Ensure no overflow outside the div */
 }
@@ -182,9 +184,12 @@
 
 .about-us h2 {
   margin-bottom: 20px;
+  color: black;
+  font-size: 50px;
+  text-align: center;
 }
 
 .about-us p {
-  font-size: 18px;
+  font-size: 25px;
   line-height: 1.6;
 }
