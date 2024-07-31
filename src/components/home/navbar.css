@@ -1,0 +1,96 @@
+/* navbar.css */
+
+/* Remove background color and style for About Us button */
+.navbar-link[href*="#about-us"] {
+    cursor: pointer;
+    color: maroon;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none; /* Remove background color */
+    padding: 1rem 2rem;
+    box-shadow: none; /* Remove box shadow */
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.navbar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: maroon; /* Maroon text color */
+    font-family: 'Arial', sans-serif; /* Example font-family */
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-link {
+    margin: 0 1rem;
+    font-size: 1rem;
+    color: maroon; /* Maroon text color */
+    text-decoration: none;
+}
+
+.navbar-link:hover {
+    text-decoration: underline;
+}
+
+.navbar-dropdown {
+    position: relative;
+}
+
+.navbar-dropdown .navbar-link {
+    background: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white; /* White background for dropdown */
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
+    z-index: 1;
+}
+
+.navbar-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: maroon; /* Maroon text color */
+}
+
+.dropdown-content a:hover {
+    background-color: #f4f4f4; /* Light grey background on hover */
+}
+
+.navbar-button {
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: white; /* White text color */
+    background-color: maroon; /* Maroon background color for buttons */
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.navbar-button:hover {
+    background-color: #660000; /* Darker maroon for button hover effect */
+}
