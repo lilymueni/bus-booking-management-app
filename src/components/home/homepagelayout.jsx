@@ -48,20 +48,38 @@ const HomePageLayout = () => {
       </section>
       <section className="reasons">
         <div className="card">
-          <h3>Reason 1</h3>
-          <p>Why you should choose TransitWise.</p>
+          <br></br><br></br>
+          <img src="https://www.shutterstock.com/image-vector/best-price-icon-logo-isolated-600nw-2240243187.jpg" alt="Affordable" style={{width: '160px', height: '160px'}}></img>
+          <br></br><br></br><br></br><br></br>
+          <h3>AFFORDABLE</h3> 
+          <br></br>
+          <p>We offer unbeatable prices that provide the best value for your money.<br>
+          </br> Save more with our cost-effective travel solutions.</p>
         </div>
         <div className="card">
-          <h3>Reason 2</h3>
-          <p>Why you should choose TransitWise.</p>
+          <img src="https://media.istockphoto.com/id/956955682/vector/stopwatch-in-motion-line-icon.jpg?s=612x612&w=0&k=20&c=ouraifW3pOIPHEMtLnzGReBCjkmzoY6ZHtwGmBDvj8E=" alt="timely" style={{width: '240px', height: '240px'}}/>
+          <h3>TIMELY</h3>
+          <br></br>
+          <p>We understand the importance of your time.<br>
+          </br> Our services ensure prompt departures and arrivals, keeping you on schedule.</p>
         </div>
         <div className="card">
-          <h3>Reason 3</h3>
-          <p>Why you should choose TransitWise.</p>
+        <br></br><br></br>
+          <img src="https://www.freeiconspng.com/thumbs/wifi-icon/3d-black-wifi-icon-9.png" alt="wifi" style={{width: '120px', height: '120px'}}/>
+          <br></br><br></br><br></br><br></br><br></br>
+          <h3>COMFORT</h3>
+          <br></br>
+          <p>Our coaches are top-of-the-line and regularly maintained.<br>
+          </br> Enjoy super-comfortable seats and free WiFi for a pleasant journey.</p>
         </div>
         <div className="card">
-          <h3>Reason 4</h3>
-          <p>Why you should choose TransitWise.</p>
+        <br></br>
+          <img src="https://static.thenounproject.com/png/2389124-200.png" alt="comfort" style={{width: '140px', height: '140px'}}/>
+          <br></br><br></br><br></br><br></br><br></br>
+          <h3>LUXURIOUS</h3>
+          <br></br>
+          <p>Travel in style with our luxurious coaches equipped with modern amenities.<br>
+          </br> Experience premium comfort and top-notch service on every trip.</p>
         </div>
       </section>
       <footer className="footer">
