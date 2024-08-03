@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './ContactForm.css'; // Import the CSS file
 
 const ContactForm = () => {
     const [name, setName] = useState('');
@@ -22,8 +23,12 @@ const ContactForm = () => {
         }
     };
 
-    return (
-        <div className="contact-form">
+    return (<>
+        <div className='nav'>
+
+        </div>
+
+        <div className="contact-form" id='contactform'>
             <h2>Contact Us</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Name:</label>
@@ -53,6 +58,7 @@ const ContactForm = () => {
             </form>
             {responseMessage && <p>{responseMessage}</p>}
         </div>
+        </>
     );
 };
 

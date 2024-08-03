@@ -79,7 +79,8 @@
 }
 .hero-intro {
   margin-bottom: 0rem; /* No margin at the bottom */
-  padding: 0.5rem 1rem; /* Adjust padding to reduce height */
+  padding-top: 12vh;
+  padding-bottom: 3vh; /*Adjust padding to reduce height */
 }
 
 .hero-intro h2 {

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, Navigate } from 'react-router-dom'; // Add Navigate here
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext'; // Ensure this path is correct
 import { doCreateUserWithEmailAndPassword } from '../../../firebase/Auth';
+import axios from 'axios';
 import './Register.css';
 
 const Register = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
@@ -26,8 +28,17 @@ const Register = () => {
     if (!isRegistering) {
       setIsRegistering(true);
       try {
-        await doCreateUserWithEmailAndPassword(email, password);
-        navigate('/home');
+        // Register with Firebase
+        //await doCreateUserWithEmailAndPassword(email, password);
+        
+        // Register user with backend
+        await axios.post('http://127.0.0.1:5555/signup', {
+          email,
+          username,
+          password
+        });
+
+        navigate('/');
       } catch (err) {
         setErrorMessage('Failed to create account');
         setIsRegistering(false);
@@ -35,45 +46,56 @@ const Register = () => {
     }
   };
 
-  if (userLoggedIn) {
-    return <Navigate to="/home" replace />;
-  }
+  // if (userLoggedIn) {
+  //   return <Navigate to="/" replace />;
+  // }
 
   return (
-    <div className="register-page">
-      <div className="register-card">
-        <h2 className="register-header">Welcome to TransitWise</h2>
-        <form onSubmit={onSubmit} className="register-form">
-          <div className="register-field">
-            <label>Email</label>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2 className="auth-header">Welcome to TransitWise</h2>
+        <form onSubmit={onSubmit} className="auth-form">
+          <div className="auth-field">
+            <label className="auth-label">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="register-input"
+              className="auth-input"
               autoComplete="email"
             />
           </div>
-          <div className="register-field">
-            <label>Password</label>
+          <div className="auth-field">
+            <label className="auth-label">Username</label>
+            <input
+              type="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              className="auth-input"
+              autoComplete="username"
+            />
+          </div>
+          <div className="auth-field">
+            <label className="auth-label">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="register-input"
+              className="auth-input"
               autoComplete="new-password"
             />
           </div>
-          <div className="register-field">
-            <label>Confirm Password</label>
+          <div className="auth-field">
+            <label className="auth-label">Confirm Password</label>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="register-input"
+              className="auth-input"
               autoComplete="off"
             />
           </div>
@@ -83,15 +105,13 @@ const Register = () => {
           <button
             type="submit"
             disabled={isRegistering}
-            className={`register-button ${
-              isRegistering ? 'disabled' : ''
-            }`}
+            className={`auth-button ${isRegistering ? 'disabled' : ''}`}
           >
             {isRegistering ? 'Signing Up...' : 'Sign Up'}
           </button>
-          <div className="login-link">
+          <div className="switch-auth-link">
             Already have an account?{' '}
-            <Link to="/login" className="login-link-text">
+            <Link to="/login" className="switch-auth-link-text">
               Continue
             </Link>
           </div>

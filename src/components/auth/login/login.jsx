@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom'; // Add Navigate here
 import { useAuth } from '../../contexts/AuthContext'; // Ensure this path is correct
 import { doSignInWithEmailAndPassword } from '../../../firebase/Auth';
+import axios from 'axios';
 import './login.css';
 
 const Login = () => {
@@ -20,8 +21,18 @@ const Login = () => {
     if (!isLoggingIn) {
       setIsLoggingIn(true);
       try {
-        await doSignInWithEmailAndPassword(email, password);
-        navigate('/home');
+        // Authenticate with Firebase
+        const userCredential = await doSignInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        const localId = user.uid;
+
+        // Authenticate user with backend
+        await axios.post('http://127.0.0.1:5555/login', { 
+          email: email,
+          uid: localId
+        });
+        
+        navigate('/');
       } catch (err) {
         setErrorMessage('Failed to log in');
         setIsLoggingIn(false);
@@ -29,9 +40,9 @@ const Login = () => {
     }
   };
 
-  if (userLoggedIn) {
-    return <Navigate to="/home" replace />;
-  }
+  // if (userLoggedIn) {
+  //   return <Navigate to="/" replace />;
+  // }
 
   return (
     <div className="auth-page">
