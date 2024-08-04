@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
-import images from "./images.jpeg"
+import images from "./images.jpeg";
+
 const Navbar = () => {
   return (
     <nav className="navbar">
