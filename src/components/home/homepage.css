@@ -78,14 +78,14 @@
   background-color: #f1f1f1;
 }
 .hero-intro {
-  margin-bottom: 0rem; /* No margin at the bottom */
-  padding-top: 12vh;
-  padding-bottom: 3vh; /*Adjust padding to reduce height */
+  margin-bottom: 0rem; 
+  padding-top: 10vh;
+  padding-bottom: 2vh; 
 }
 
 .hero-intro h2 {
-  font-size: 2.5rem; /* Large font size for the heading */
-  color: #181717; /* Dark color for the heading */
+  font-size: 2.5rem; 
+  color: #181717; 
   margin: 0.5rem 0; /* Reduce margin to save space */
 }
 
@@ -93,6 +93,7 @@
   font-size: 1.5rem; /* Slightly larger font size for the paragraph */
   color: maroon; /* Gray color for the paragraph */
   margin: 0.5rem 0; /* Reduce margin to save space */
+  text-align: center;
 }
 
 
@@ -102,7 +103,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh; /* Adjust this height as needed */
+  height: 45vh; /* Adjust this height as needed */
   background-color: lightgray; /* Fallback background color */
   text-align: center;
   font-size: 40px;
@@ -123,7 +124,7 @@
   text-align: center;
   padding: o.8;
   margin-bottom: o.1rem;
-  background-color: rgb(245, 248, 248);
+ 
   margin: 0.5rem 0;
 }
 
@@ -136,7 +137,7 @@
   flex-direction: row; /* Set direction to row */
   flex-wrap: wrap; /* Allow wrapping */
   justify-content: center; /* Center the form elements */
-  gap: 1rem; /* Add space between elements */
+  gap: 2rem; /* Add space between elements */
 }
 
 .booking-form label {
@@ -148,21 +149,36 @@
 .booking-form input {
   padding: 0.5rem;
   margin-top: 0.5rem;
-  width: 200px; /* Adjust width as needed */
+  width: 200px; 
 }
 
 .booking-form button {
   padding: 0.5rem 1rem;
-  background-color: black;
-  color: white;
+  background-color: rgb(184, 155, 155);
+ 
   border: none;
   cursor: pointer;
   margin-top: 1rem;
 }
 
 .booking-form button:hover {
-  background-color: #333;
+  background-color: #c9b9b9;
 }
+.section-container {
+  background-color: rgb(235, 238, 241);;
+  padding: 20px;
+  text-align: center;
+}
+
+.section-container h2 {
+  margin-bottom: 20px;
+  font-size: 2em;
+  color: #141414;
+  background-color: rgb(235, 238, 241);
+
+}
+
+
 
 .reasons {
   display: flex;
@@ -197,7 +213,7 @@
   margin-top: 0; /* Ensure there's no additional margin at the top */
   margin-bottom: 0.5rem;
   color: black;
-  font-size: 50px;
+  font-size: 40px;
   text-align: center;
 }
 
