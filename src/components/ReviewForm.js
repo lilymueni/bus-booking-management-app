@@ -6,23 +6,27 @@ const ReviewForm = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [review, setReview] = useState('');
-    const [rating, setRating] = useState(1);
+    const [rating, setRating] = useState(0);
     const [responseMessage, setResponseMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('/api/reviews', {
+            const response = await axios.post('http://localhost:5555/reviews', {
                 name,
                 email,
                 review,
                 rating
             });
-            setResponseMessage(response.data.message);
+            setResponseMessage('Thank you for your review!');
         } catch (error) {
             setResponseMessage('An error occurred. Please try again later.');
         }
+    };
+
+    const handleRatingChange = (newRating) => {
+        setRating(newRating);
     };
 
     return (
@@ -52,16 +56,20 @@ const ReviewForm = () => {
                     onChange={(e) => setReview(e.target.value)}
                     required
                 />
-                <label htmlFor="rating">Rating (1-5):</label>
-                <input
-                    type="number"
-                    id="rating"
-                    value={rating}
-                    onChange={(e) => setRating(e.target.value)}
-                    min="1"
-                    max="5"
-                    required
-                />
+                <div className="rating">
+                    <label>Rating:</label>
+                    <div className="stars">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                            <span
+                                key={star}
+                                className={`star ${rating >= star ? 'selected' : ''}`}
+                                onClick={() => handleRatingChange(star)}
+                            >
+                                &#9733;
+                            </span>
+                        ))}
+                    </div>
+                </div>
                 <button type="submit">Submit</button>
             </form>
             {responseMessage && <p>{responseMessage}</p>}
