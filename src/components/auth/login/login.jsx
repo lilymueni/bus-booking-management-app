@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, Navigate } from 'react-router-dom'; // Add Navigate here
+import { Link, useNavigate} from 'react-router-dom'; // Add Navigate here
 import { useAuth } from '../../contexts/AuthContext'; // Ensure this path is correct
 import { doSignInWithEmailAndPassword } from '../../../firebase/Auth';
 import axios from 'axios';
@@ -13,7 +13,7 @@ const Login = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { userLoggedIn } = useAuth();
+  //const { userLoggedIn } = useAuth();
 
   const onSubmit = async (e) => {
     e.preventDefault();
