@@ -12,12 +12,12 @@ const ContactForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:3000/contact', {
+            const response = await axios.post('http://localhost:5555/contact', {
                 name,
                 email,
                 message
             });
-            setResponseMessage(response.data.message);
+            setResponseMessage('Thank you for your message!');
         } catch (error) {
             setResponseMessage('An error occurred. Please try again later.');
         }
@@ -54,7 +54,7 @@ const ContactForm = () => {
                     onChange={(e) => setMessage(e.target.value)}
                     required
                 />
-                <button type="submit">Send</button>
+                <button type="submit" className="submit-button">Send</button>
             </form>
             {responseMessage && <p>{responseMessage}</p>}
         </div>
