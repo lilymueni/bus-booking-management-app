@@ -88,6 +88,8 @@ const HomePageLayout = () => {
 
       <footer className="footer">
         <p>&copy; 2024 TransitWise. All rights reserved.</p>
+        <p>Terms & Conditions||Policy</p>
+        <p>Booking offices</p>
       </footer>
     </div>
   );
