@@ -46,5 +46,5 @@ button.btn-primary {
 }
 
 button.btn-primary:hover {
-    background-color: #e07b00; /* Darker orange for button hover effect */
+    background-color: #e07b00; 
 }

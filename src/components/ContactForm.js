@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './ContactForm.css'; // Import the CSS file
+import './ContactForm.css'; 
 
 const ContactForm = () => {
     const [name, setName] = useState('');
@@ -12,7 +12,7 @@ const ContactForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5555/contact', {
+            const response = await axios.post('https://bus-booking-management-system1.onrender.com/contact', {
                 name,
                 email,
                 message

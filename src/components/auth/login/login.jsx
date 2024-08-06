@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate} from 'react-router-dom'; // Add Navigate here
+import { Link, useNavigate} from 'react-router-dom'; 
 import { useAuth } from '../../contexts/AuthContext'; // Ensure this path is correct
 import { doSignInWithEmailAndPassword } from '../../../firebase/Auth';
 import axios from 'axios';
@@ -32,7 +32,7 @@ const Login = () => {
           uid: localId
         });
         
-        navigate('/');
+        navigate('/home');
       } catch (err) {
         setErrorMessage('Failed to log in');
         setIsLoggingIn(false);

@@ -1,65 +1,65 @@
-/* General styling for the contact form */
+
 
 .nav {
     padding: 10vh;
 }
 
 .contact-form {
-    background-color: #fff; /* Background color for the form */
-    padding: 2rem; /* Padding around the form */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow around the form */
-    max-width: 500px; /* Maximum width of the form */
-    margin: 2rem auto; /* Center the form on the page */
-    font-family: Arial, sans-serif; /* Font family */
+    background-color: #fff; 
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    max-width: 500px; 
+    margin: 2rem auto;
+    font-family: Arial, sans-serif;
   }
   
   .contact-form h2 {
-    color: maroon; /* Heading color */
-    text-align: center; /* Center align the heading */
-    margin-bottom: 1rem; /* Space below the heading */
+    color: maroon; 
+    text-align: center; 
+    margin-bottom: 1rem;
   }
   
   .contact-form form {
-    display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Stack children vertically */
+    display: flex; 
+    flex-direction: column; 
   }
 
   
   .contact-form label {
-    color: maroon; /* Label color */
-    margin-bottom: 0.5rem; /* Space below the label */
-    font-weight: bold; /* Bold font for labels */
+    color: maroon; 
+    margin-bottom: 0.5rem; 
+    font-weight: bold;
   }
   
   .contact-form input,
   .contact-form textarea {
-    padding: 0.5rem; /* Padding inside the inputs and textarea */
-    border: 1px solid #ddd; /* Border color */
-    border-radius: 4px; /* Rounded corners */
-    font-size: 1rem; /* Font size */
-    margin-bottom: 1rem; /* Space below the inputs and textarea */
-    width: 100%; /* Full width */
+    padding: 0.5rem; 
+    border: 1px solid #ddd; 
+    border-radius: 4px;
+    font-size: 1rem; 
+    margin-bottom: 1rem; 
+    width: 100%; 
   }
   
   .contact-form button {
-    padding: 0.75rem; /* Padding inside the button */
-    font-size: 1rem; /* Font size */
-    color: white; /* Text color */
-    background-color: brown; /* Button background color */
-    border: none; /* No border */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition for background color */
+    padding: 0.75rem; 
+    font-size: 1rem;
+    color: white;
+    background-color: brown;
+    border: none; 
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s; 
   }
   
   .contact-form button:hover {
-    background-color: darkorange; /* Button background color on hover */
+    background-color: brown;
   }
   
   .contact-form p {
-    color: maroon; /* Text color */
-    text-align: center; /* Center align the text */
-    margin-top: 1rem; /* Space above the paragraph */
+    color: maroon; 
+    text-align: center; 
+    margin-top: 1rem;
   }
   
