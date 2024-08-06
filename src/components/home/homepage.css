@@ -8,7 +8,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: orange;
+  background-color: blue;
 }
 
 .navbar-logo {
@@ -17,19 +17,23 @@
 }
 
 .navbar-title {
-  font-size: 1.5rem;
-  color: white;
+  font-size: 2rem;
+  color: whitesmoke;
+  font-style: oblique;
 }
 
 .navbar-links {
   display: flex;
   align-items: center;
+  
 }
+
 
 .navbar-link {
   margin-left: 1rem;
   color: white;
   text-decoration: none;
+  font-size: medium;
 }
 
 .navbar-link:hover {
@@ -39,14 +43,14 @@
 .navbar-button {
   margin-left: 1rem;
   padding: 0.5rem 1rem;
-  background-color: black;
-  color: white;
+  background-color: rgb(247, 235, 244);
+  color: rgb(46, 46, 48);
   border: none;
   cursor: pointer;
 }
 
 .navbar-button:hover {
-  background-color: #333;
+  background-color:whitesmoke;
 }
 
 .navbar-dropdown {
@@ -84,13 +88,16 @@
 }
 
 .hero-intro h2 {
-  font-size: 2.5rem; 
+  font-size: 4rem; 
+  font-style: italic;
   color: #181717; 
   margin: 0.5rem 0; /* Reduce margin to save space */
+  text-align: center;
 }
 
 .hero-intro p {
   font-size: 1.5rem; 
+  font-style: oblique;
   color: maroon; 
   margin: 0.5rem 0; 
   text-align: center;
@@ -103,8 +110,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 45vh; /* Adjust this height as needed */
-  background-color: lightgray; /* Fallback background color */
+  height: 50vh; /* Adjust this height as needed */
+  
+  background-color:white; /* Fallback background color */
   text-align: center;
   font-size: 40px;
   position: relative;
@@ -112,11 +120,11 @@
 }
 
 .hero-image {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 200%;
+  height: 2000%;
   object-fit: cover; 
 }
 
@@ -167,7 +175,7 @@
 .section-container {
   background-color: rgb(235, 238, 241);;
   padding: 20px;
-  text-align: center;
+  
 }
 
 .section-container h2 {
@@ -175,6 +183,7 @@
   font-size: 2em;
   color: #141414;
   background-color: rgb(235, 238, 241);
+  text-align: center;
 
 }
 
@@ -198,26 +207,44 @@
 .footer {
   text-align: left;
   padding: 1rem;
-  background-color: rgb(255, 115, 0);
-  color: black;
+  background-color: rgb(70, 140, 233);
+  color: white;
 }
 
 .about-us {
   padding: 10px 10px; /* Reduced padding at the top */
   background-color: #f8f8f8; /* Light background color */
-  color: maroon;
+  color: black;
   text-align: center;
 }
 
 .about-us h2 {
   margin-top: 0; /* Ensure there's no additional margin at the top */
   margin-bottom: 0.5rem;
-  color: black;
-  font-size: 40px;
-  text-align: center;
+  color:blue;
+  font-size: 4rem;
+  text-align: left;
+  font-style: var(#141414);
 }
 
 .about-us p {
   font-size: 1.5rem;
   line-height: 1.6;
+  text-align: left;
+  font-style: normal;
 }
+/* Center the text in the div */
+.centered-text {
+  text-align: center;
+  font-style: italic;
+  color: black;
+}
+
+/* Center the div itself within its parent container */
+.centered-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* To keep the content vertical */
+}
+

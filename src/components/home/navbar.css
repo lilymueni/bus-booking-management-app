@@ -1,7 +1,7 @@
 /* Remove background color and style for About Us button */
 .navbar-link[href*="#about-us"] {
     cursor: pointer;
-    color: maroon;
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,13 +9,26 @@
     padding: 1rem 2rem;
     box-shadow: none; /* Remove box shadow */
 }
+/* Ensure the dropdown button matches the other navbar links */
+.navbar-link, .navbar-button {
+    background-color: transparent; /* Transparent background */
+    border: none; /* No border */
+    color: whitesmoke; /* Maroon text color */
+    padding: 10px 20px; /* Padding for the button */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-decoration: none; /* No underline on text */
+    outline: none; /* Removes outline */
+    transition: background-color 0.3s ease; 
+    }
+
 
 nav {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
-    background-color: white;
+    background-color:powderblue;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -32,19 +45,21 @@ nav {
 .navbar-title {
     font-size: 1.5rem;
     font-weight: bold;
-    color: maroon; /* Maroon text color */
+    color:whitesmoke; /* Maroon text color */
     font-family: 'Arial', sans-serif; /* Example font-family */
 }
 
 .navbar-links {
     display: flex;
     align-items: center;
+    color: powderblue;
+
 }
 
 .navbar-link {
     margin: 0 1rem;
     font-size: 1rem;
-    color: maroon; /* Maroon text color */
+    color: powderblue; /* Maroon text color */
     text-decoration: none;
 }
 
@@ -96,8 +111,8 @@ nav {
     margin: 0 0.5rem;
     padding: 0.5rem 1rem;
     font-size: 1rem;
-    color: white; /* White text color */
-    background-color: maroon; /* Maroon background color for buttons */
+    color: black; /* White text color */
+    background-color:whitesmoke; /* Maroon background color for buttons */
     border: none;
     border-radius: 4px;
     text-decoration: none;
@@ -105,5 +120,5 @@ nav {
 }
 
 .navbar-button:hover {
-    background-color: #660000; /* Darker maroon for button hover effect */
+    background-color: whitesmoke; /* Darker maroon for button hover effect */
 }
