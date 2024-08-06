@@ -13,7 +13,7 @@ const ReviewForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5555/reviews', {
+            const response = await axios.post('https://bus-booking-management-system1.onrender.com/reviews', {
                 name,
                 email,
                 review,
