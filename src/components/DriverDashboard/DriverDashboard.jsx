@@ -1,3 +1,4 @@
+// src/DriverDashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -28,7 +29,7 @@ const DriverDashboard = () => {
     };
 
     const handleDeleteBus = (id) => {
-        axios.delete(/api/buses/${id})
+        axios.delete(`/api/buses/${id}`)
             .then(() => setBuses(buses.filter(bus => bus.id !== id)))
             .catch(error => console.error(error));
     };
