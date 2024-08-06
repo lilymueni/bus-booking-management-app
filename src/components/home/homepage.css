@@ -91,7 +91,7 @@
   font-size: 4rem; 
   font-style: italic;
   color: #181717; 
-  margin: 0.5rem 0; /* Reduce margin to save space */
+  margin: 0.5rem 0; 
   text-align: center;
 }
 
@@ -110,13 +110,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh; /* Adjust this height as needed */
+  height: 50vh;
   
-  background-color:white; /* Fallback background color */
+  background-color:white; 
   text-align: center;
   font-size: 40px;
   position: relative;
-  overflow: hidden; /* Ensure no overflow outside the div */
+  overflow: hidden; 
 }
 
 .hero-image {
@@ -142,10 +142,10 @@
 
 .booking-form form {
   display: flex;
-  flex-direction: row; /* Set direction to row */
-  flex-wrap: wrap; /* Allow wrapping */
-  justify-content: center; /* Center the form elements */
-  gap: 2rem; /* Add space between elements */
+  flex-direction: row; 
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 2rem; 
 }
 
 .booking-form label {
@@ -202,7 +202,7 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   width: 20%;
   text-align: center;
-}
+  }
 
 .footer {
   text-align: left;
@@ -212,14 +212,14 @@
 }
 
 .about-us {
-  padding: 10px 10px; /* Reduced padding at the top */
-  background-color: #f8f8f8; /* Light background color */
+  padding: 10px 10px; 
+  background-color: #f8f8f8;
   color: black;
   text-align: center;
 }
 
 .about-us h2 {
-  margin-top: 0; /* Ensure there's no additional margin at the top */
+  margin-top: 0; 
   margin-bottom: 0.5rem;
   color:blue;
   font-size: 4rem;
@@ -233,18 +233,18 @@
   text-align: left;
   font-style: normal;
 }
-/* Center the text in the div */
+
 .centered-text {
   text-align: center;
   font-style: italic;
   color: black;
 }
 
-/* Center the div itself within its parent container */
+
 .centered-text-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column; /* To keep the content vertical */
+  flex-direction: column; 
 }
 
