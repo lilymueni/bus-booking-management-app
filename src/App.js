@@ -7,7 +7,7 @@ import HomePage from './components/home/homepagelayout';
 import ContactForm from './components/ContactForm';
 import ReviewForm from './components/ReviewForm';
 import BookingForm from './components/BookingForm/BookingForm'; 
-import AdminDashboard from './components/AdminDashboard';
+import AdminDashboard from './components/AdminDashboard/AdminDashboard'; 
 
 import PrivateRoute from './components/PrivateRoute'; 
 
