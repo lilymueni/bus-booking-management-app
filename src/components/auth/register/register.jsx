@@ -32,7 +32,7 @@ const Register = () => {
         //await doCreateUserWithEmailAndPassword(email, password);
         
         // Register user with backend
-        await axios.post('http://127.0.0.1:5555/signup', {
+        await axios.post('https://bus-booking-management-system1.onrender.com/signup', {
           email,
           username,
           password
