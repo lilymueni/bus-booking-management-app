@@ -4,15 +4,22 @@
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
+    background-color: #ffffff; 
+    color: #000000; 
 }
 
 h1 {
     text-align: center;
     color: #333;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 h2 {
     color: #555;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
 }
 
 input {
@@ -20,44 +27,55 @@ input {
     margin: 10px 0;
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    width: calc(100% - 22px); /* Adjust width to account for padding and border */
+    border-radius: 5px; 
+    width: calc(100% - 22px); 
+    font-size: 1rem;
 }
 
 button {
     padding: 10px 15px;
-    color: #fff;
-    background-color: #007bff;
+    color: #ffffff; 
+    background-color: #007bff; 
     border: none;
-    border-radius: 4px;
+    border-radius: 5px; 
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
     margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; 
 }
 
 ul {
     list-style-type: none;
     padding: 0;
+    margin: 20px 0;
 }
 
 li {
     background: #f9f9f9;
     margin: 5px 0;
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 5px; 
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: 1px solid #ddd; 
 }
 
 li button {
-    background-color: #dc3545;
+    background-color: #dc3545; 
+    color: #ffffff; 
+    border-radius: 5px; 
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
 }
 
 li button:hover {
-    background-color: #c82333;
+    background-color: #c82333; 
 }
