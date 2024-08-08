@@ -1,0 +1,76 @@
+.book-tickets {
+    background-color: #ffffff; 
+    padding: 20vh;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .search-form, .details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  label {
+    color: #000000; 
+    font-weight: bold;
+  }
+  
+  input[type="text"], input[type="date"] {
+    padding: 8px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  .search-button, .confirm-button {
+    padding: 10px;
+    background-color: #0000ff; 
+    color: #ffffff; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search-button:hover, .confirm-button:hover {
+    background-color: #5f5f5f; 
+  }
+  
+  .available-buses ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .available-buses li {
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #f8f8f8; 
+  }
+  
+  .available-buses button {
+    padding: 5px 10px;
+    background-color: #a52a2a; 
+    color: #ffffff; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .available-buses button:hover {
+    background-color: #000000; 
+  }
