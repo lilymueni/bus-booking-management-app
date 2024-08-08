@@ -1,0 +1,78 @@
+/* src/components/BookTickets.css */
+.book-tickets-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f8f8;
+  }
+  
+  .book-tickets-form, .book-ticket-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .book-tickets-form h2, .book-ticket-form h3 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .book-tickets-form label, .book-ticket-form label {
+    display: block;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .book-tickets-form input, .book-ticket-form input, .book-tickets-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .book-tickets-form button, .book-ticket-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .book-tickets-form button:hover, .book-ticket-form button:hover {
+    background-color: darkblue;
+  }
+  
+  .buses-list, .available-seats {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .buses-list h3, .available-seats h3 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .buses-list ul, .available-seats ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .buses-list li, .available-seats li {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
