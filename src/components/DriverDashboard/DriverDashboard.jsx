@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Navbar from '../home/navbar'; 
+import './DriverDashboard.css';
 
 const DriverDashboard = () => {
     const [buses, setBuses] = useState([]);
@@ -37,6 +38,7 @@ const DriverDashboard = () => {
 
     return (
         <div>
+            <Navbar /> {/* Navbar included */}
             <h1>Driver Dashboard</h1>
             <h2>Add New Bus</h2>
             <input
