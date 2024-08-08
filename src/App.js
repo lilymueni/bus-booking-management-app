@@ -7,9 +7,10 @@ import HomePage from './components/home/homepagelayout';
 import ContactForm from './components/ContactForm';
 import ReviewForm from './components/ReviewForm';
 import BookingForm from './components/BookingForm/BookingForm'; 
-import UserDashboard from './components/home/Dashboard';
+// import UserDashboard from './components/home/Dashboard';
+import DriverDashboard from './components/DriverDashboard/DriverDashboard'
 
-import PrivateRoute from './components/PrivateRoute'; 
+// import PrivateRoute from './components/PrivateRoute'; 
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
           <Route path="contact-us" element={<ContactForm />} />
           {/* <Route path="home" element={<AdminDashboard/>} /> */}
         </Route>
-        <Route path="home" element={<UserDashboard />} />
+        <Route path="home" element={<DriverDashboard />} />
       </Routes>
     </Router>
   );

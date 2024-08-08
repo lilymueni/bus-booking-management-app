@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext'; // Ensure this path is correct
-//import { doCreateUserWithEmailAndPassword } from '../../../firebase/Auth';
+import { doCreateUserWithEmailAndPassword } from '../../../firebase/Auth';
 import axios from 'axios';
 import './Register.css';
 
@@ -15,7 +15,7 @@ const Register = () => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  //const { userLoggedIn } = useAuth();
+  const { userLoggedIn } = useAuth();
 
   const onSubmit = async (e) => {
     e.preventDefault();

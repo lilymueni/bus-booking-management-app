@@ -13,7 +13,7 @@ const Login = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  //const { userLoggedIn } = useAuth();
+  const { userLoggedIn } = useAuth();
 
   const onSubmit = async (e) => {
     e.preventDefault();
