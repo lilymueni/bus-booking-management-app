@@ -6,8 +6,8 @@ import Login from './components/auth/login/login';
 import HomePage from './components/home/homepagelayout'; 
 import ContactForm from './components/ContactForm';
 import ReviewForm from './components/ReviewForm';
-import BookingForm from './components/BookingForm/BookingForm';
-import AdminDashboard from './components/AdminDashboard/AdminDashboard';
+import BookingForm from './components/BookingForm/BookingForm'; 
+import UserDashboard from './components/home/Dashboard';
 
 import PrivateRoute from './components/PrivateRoute'; 
 
@@ -25,9 +25,9 @@ function App() {
          
 
           <Route path="contact-us" element={<ContactForm />} />
-          <Route path="home" element={<AdminDashboard/>} />
+          {/* <Route path="home" element={<AdminDashboard/>} /> */}
         </Route>
-        <Route path="home" element={<AdminDashboard />} />
+        <Route path="home" element={<UserDashboard />} />
       </Routes>
     </Router>
   );
