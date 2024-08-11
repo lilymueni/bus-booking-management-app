@@ -16,26 +16,35 @@ const BookTickets = () => {
     idNumber: '',
     phoneNumber: '',
   });
+  const [bookingCompleted, setBookingCompleted] = useState(false);
+  const [noBusesFound, setNoBusesFound] = useState(false); // New state for error handling
 
+  // Handle search for buses based on from, to, and date
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setNoBusesFound(false); // Reset the state on new search
     try {
-      const response = await axios.get('/api/buses', {
+      const response = await axios.get('https://bus-booking-management-system1.onrender.com/buses', {
         params: {
-          date,
           from: destinationFrom,
           to: destinationTo,
         },
       });
-      setBuses(response.data);
+      if (response.data.length === 0) {
+        setNoBusesFound(true);
+      } else {
+        setBuses(response.data);
+      }
     } catch (error) {
       console.error('Error fetching buses:', error);
+      setNoBusesFound(true); // Show error message on fetch failure
     }
   };
 
+  // Handle fetching available seats for the selected bus
   const handleBooking = async (busId) => {
     try {
-      const response = await axios.get(`/api/buses/${busId}/seats`);
+      const response = await axios.get(`https://bus-booking-management-system1.onrender.com/buses/${busId}`);
       setAvailableSeats(response.data);
       setSelectedBus(busId);
     } catch (error) {
@@ -43,6 +52,7 @@ const BookTickets = () => {
     }
   };
 
+  // Handle change in personal details form
   const handlePersonalDetailsChange = (e) => {
     setPersonalDetails({
       ...personalDetails,
@@ -50,9 +60,25 @@ const BookTickets = () => {
     });
   };
 
+  // Handle booking the ticket
   const handleBookTicket = async (e) => {
     e.preventDefault();
-    // Add booking logic here
+    try {
+      const response = await axios.post('https://bus-booking-management-system1.onrender.com/bookings', {
+        bus_id: selectedBus,
+        seat_number: personalDetails.seatNumber, // Pass the selected seat number
+        personal_details: personalDetails,
+      });
+
+      if (response.status === 200) {
+        setBookingCompleted(true);
+        // Update available seats after booking
+        const updatedSeats = availableSeats.filter(seat => seat.id !== response.data.booked_seat_id);
+        setAvailableSeats(updatedSeats);
+      }
+    } catch (error) {
+      console.error('Error booking ticket:', error);
+    }
   };
 
   return (
@@ -108,15 +134,23 @@ const BookTickets = () => {
         <button type="submit">Search</button>
       </form>
 
-      {buses.length > 0 && (
+      {noBusesFound && (
+        <div className="no-buses-found">
+          <h3>No Buses Available</h3>
+          <p>No buses were found matching your search criteria. Please try a different search.</p>
+        </div>
+      )}
+
+      {buses.length > 0 && !noBusesFound && (
         <div className="buses-list">
           <h3>Available Buses</h3>
           <ul>
             {buses.map((bus) => (
               <li key={bus.id}>
-                <p>Bus Name: {bus.name}</p>
-                <p>Price: {bus.price}</p>
-                <button onClick={() => handleBooking(bus.id)}>Book</button>
+                <p>Bus Name: {bus.number_plate}</p>
+                <p>Price: {bus.price_per_seat}</p>
+                <p>Seats Available: {bus.seats_available}</p>
+                <button onClick={() => handleBooking(bus.id)}>View Seats</button>
               </li>
             ))}
           </ul>
@@ -162,13 +196,35 @@ const BookTickets = () => {
               <h3>Available Seats</h3>
               <ul>
                 {availableSeats.map((seat) => (
-                  <li key={seat.id}>{seat.number}</li>
+                  <li key={seat.id}>
+                    <input
+                      type="radio"
+                      id={`seat-${seat.id}`}
+                      name="seatNumber"
+                      value={seat.number}
+                      onChange={(e) =>
+                        setPersonalDetails({
+                          ...personalDetails,
+                          seatNumber: e.target.value,
+                        })
+                      }
+                      required
+                    />
+                    <label htmlFor={`seat-${seat.id}`}>{seat.number}</label>
+                  </li>
                 ))}
               </ul>
             </div>
           )}
           <button type="submit">Confirm Booking</button>
         </form>
+      )}
+
+      {bookingCompleted && (
+        <div className="booking-confirmation">
+          <h3>Booking Completed!</h3>
+          <p>Your seat has been successfully booked.</p>
+        </div>
       )}
     </div>
   );

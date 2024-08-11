@@ -1,9 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './navbar.css';
-import images from "./images.jpeg";
+import images from './images.jpeg';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleAboutUsClick = () => {
+    navigate('/');
+    setTimeout(() => {
+      const aboutUsSection = document.getElementById('about-us');
+      if (aboutUsSection) {
+        aboutUsSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100); 
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -12,7 +24,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-links">
         <Link to="/" className="navbar-link">Home</Link>
-        <a href="#about-us" className="navbar-link">About Us</a>
+        <button onClick={handleAboutUsClick} className="navbar-link">About Us</button>
         <div className="navbar-dropdown">
           <button className="navbar-link">Bookings</button>
           <div className="dropdown-content">
