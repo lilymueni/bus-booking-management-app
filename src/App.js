@@ -28,7 +28,7 @@ function App() {
           <Route path="contact-us" element={<ContactForm />} />
           {/* <Route path="home" element={<AdminDashboard/>} /> */}
         </Route>
-        <Route path="home" element={<DriverDashboard />} />
+        <Route path="home" element={<DriverDashboard/>} />
       </Routes>
     </Router>
   );

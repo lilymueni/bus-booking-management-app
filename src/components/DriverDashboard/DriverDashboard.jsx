@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './DriverDashboard.css'; 
 
@@ -20,54 +21,74 @@ const DriverDashboard = () => {
     route: '',
     travelTime: ''
   });
+  const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Fetch existing buses and scheduled buses from the backend
+    axios.get('http://localhost:5555/buses')
+      .then(response => setBuses(response.data))
+      .catch(error => console.error('Error fetching buses:', error));
+
+    axios.get('http://localhost:5555/scheduled-buses')
+      .then(response => setScheduledBuses(response.data))
+      .catch(error => console.error('Error fetching scheduled buses:', error));
+  }, []);
+
   const handleNavClick = (section) => {
     setActiveSection(section);
+    setMessage(''); // Clear message when navigating to a new section
   };
 
-  const handleAddBus = (e) => {
+  const handleAddBus = async (e) => {
     e.preventDefault();
-    const newBus = {
-      busNumber: busDetails.busNumber,
-      seats: busDetails.seats,
-      route: busDetails.route,
-      travelTime: busDetails.travelTime,
-      cost: busDetails.cost
-    };
-    setBuses([...buses, newBus]);
-    setBusDetails({
-      busNumber: '',
-      seats: '',
-      route: '',
-      travelTime: '',
-      cost: ''
-    });
+    try {
+      const response = await axios.post('http://localhost:5555/buses', busDetails);
+      setBuses([...buses, response.data]);
+      setBusDetails({
+        busNumber: '',
+        seats: '',
+        route: '',
+        travelTime: '',
+        cost: ''
+      });
+      setMessage('BUS ADDED SUCCESSFULLY');
+    } catch (error) {
+      console.error('Error adding bus:', error);
+      setMessage('ERROR ADDING BUS');
+    }
   };
 
-  const handleScheduleBus = (e) => {
+  const handleScheduleBus = async (e) => {
     e.preventDefault();
-    const scheduledBus = {
-      busNumber: schedulingDetails.busNumber,
-      route: schedulingDetails.route,
-      travelTime: schedulingDetails.travelTime
-    };
-    setScheduledBuses([...scheduledBuses, scheduledBus]);
-    setSchedulingDetails({
-      busNumber: '',
-      route: '',
-      travelTime: ''
-    });
+    try {
+      const response = await axios.post('http://localhost:5555/scheduled-buses', schedulingDetails);
+      setScheduledBuses([...scheduledBuses, response.data]);
+      setSchedulingDetails({
+        busNumber: '',
+        route: '',
+        travelTime: ''
+      });
+      setMessage('BUS SCHEDULED SUCCESSFULLY');
+    } catch (error) {
+      console.error('Error scheduling bus:', error);
+      setMessage('ERROR SCHEDULING BUS');
+    }
   };
 
-  const handleDeleteBus = (e) => {
+  const handleDeleteBus = async (e) => {
     e.preventDefault();
-    const updatedBuses = buses.filter(bus => bus.busNumber !== busNumberToDelete);
-    const updatedScheduledBuses = scheduledBuses.filter(bus => bus.busNumber !== busNumberToDelete);
-    setBuses(updatedBuses);
-    setScheduledBuses(updatedScheduledBuses);
-    setBusNumberToDelete('');
+    try {
+      await axios.delete(`http://localhost:5555/buses/${busNumberToDelete}`);
+      setBuses(buses.filter(bus => bus.busNumber !== busNumberToDelete));
+      setScheduledBuses(scheduledBuses.filter(bus => bus.busNumber !== busNumberToDelete));
+      setBusNumberToDelete('');
+      setMessage('BUS DELETED SUCCESSFULLY');
+    } catch (error) {
+      console.error('Error deleting bus:', error);
+      setMessage('ERROR DELETING BUS');
+    }
   };
 
   const handleLogout = () => {
@@ -85,11 +106,19 @@ const DriverDashboard = () => {
           <li onClick={() => handleNavClick('addBus')}>Add Bus</li>
           <li onClick={() => handleNavClick('scheduleBus')}>Schedule Bus</li>
           <li onClick={() => handleNavClick('deleteBus')}>Delete Bus</li>
+          <li onClick={() => handleNavClick('search')}>Search</li>
           <li onClick={handleLogout}>Logout</li>
         </ul>
       </div>
 
       <div className="content">
+        {/* Notification Message */}
+        {message && (
+          <div className="notification">
+            <p>{message}</p>
+          </div>
+        )}
+
         {activeSection === 'addBus' && (
           <div className="form-section">
             <h2>Add New Bus</h2>
@@ -228,15 +257,22 @@ const DriverDashboard = () => {
 
         {activeSection === 'search' && (
           <div className="form-section">
-            <div className="form-group">
-              <label htmlFor="search-query">Search:</label>
-              <input
-                type="text"
-                id="search-query"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by details"
-              />
+            <h2>Search Buses</h2>
+            <input
+              type="text"
+              placeholder="Search by route or bus number"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <div className="search-results">
+              {buses.filter(bus => bus.route.includes(searchQuery) || bus.busNumber.includes(searchQuery)).map(bus => (
+                <div key={bus.busNumber}>
+                  <h4>{`Bus Number: ${bus.busNumber}`}</h4>
+                  <p>{`Route: ${bus.route}`}</p>
+                  <p>{`Seats: ${bus.seats}`}</p>
+                  <p>{`Cost: ${bus.cost}`}</p>
+                </div>
+              ))}
             </div>
           </div>
         )}

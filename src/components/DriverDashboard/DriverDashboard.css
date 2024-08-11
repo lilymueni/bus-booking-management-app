@@ -121,3 +121,17 @@
   .bus-list li {
     padding: 0.6rem;
   }
+  /* DriverDashboard.css */
+
+.notification {
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.notification.error {
+  background-color: #f2dede;
+  color: #a94442;
+}
