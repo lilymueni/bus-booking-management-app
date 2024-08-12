@@ -1,93 +1,85 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './DriverDashboard.css'; 
+import axios from 'axios';
+import './DriverDashboard.css';
 
 const DriverDashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
   const [buses, setBuses] = useState([]);
-  const [scheduledBuses, setScheduledBuses] = useState([]);
+  const [responseMessage, setResponseMessage] = useState('');
   const [busDetails, setBusDetails] = useState({
-    busNumber: '',
-    seats: '',
-    route: '',
-    travelTime: '',
-    cost: ''
+    driver_id: '', 
+    number_plate: '',
+    number_of_seats: '',
+    departure_from: '',
+    departure_to: '',
+    departure_time: '',
+    arrival_time: '',
+    price_per_seat: ''
   });
-  const [busNumberToDelete, setBusNumberToDelete] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [schedulingDetails, setSchedulingDetails] = useState({
-    busNumber: '',
-    route: '',
-    travelTime: ''
-  });
-  const [message, setMessage] = useState('');
-
+  const [busIdToDelete, setBusIdToDelete] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch existing buses and scheduled buses from the backend
-    axios.get('http://localhost:5555/buses')
-      .then(response => setBuses(response.data))
-      .catch(error => console.error('Error fetching buses:', error));
+    const fetchBuses = async () => {
+      try {
+        const response = await axios.get('https://bus-booking-management-system1.onrender.com/buses');
+        setBuses(response.data);
+      } catch (error) {
+        console.error('Error fetching buses:', error);
+      }
+    };
 
-    axios.get('http://localhost:5555/scheduled-buses')
-      .then(response => setScheduledBuses(response.data))
-      .catch(error => console.error('Error fetching scheduled buses:', error));
+    fetchBuses();
   }, []);
 
   const handleNavClick = (section) => {
     setActiveSection(section);
-    setMessage(''); // Clear message when navigating to a new section
   };
 
   const handleAddBus = async (e) => {
     e.preventDefault();
+
+    // Prepare the data to match backend expectations
+    const newBus = {
+      driver_id: busDetails.driver_id,
+      number_plate: busDetails.number_plate,
+      number_of_seats: busDetails.number_of_seats,
+      seats_available: busDetails.number_of_seats, 
+      departure_from: busDetails.departure_from,
+      departure_to: busDetails.departure_to,
+      departure_time: busDetails.departure_time,
+      arrival_time: busDetails.arrival_time,
+      price_per_seat: busDetails.price_per_seat
+    };
+
     try {
-      const response = await axios.post('http://localhost:5555/buses', busDetails);
+      const response = await axios.post('https://bus-booking-management-system1.onrender.com/buses', newBus);
+      console.log('Bus added:', response.data);
       setBuses([...buses, response.data]);
       setBusDetails({
-        busNumber: '',
-        seats: '',
-        route: '',
-        travelTime: '',
-        cost: ''
+        driver_id: '',
+        number_plate: '',
+        number_of_seats: '',
+        departure_from: '',
+        departure_to: '',
+        departure_time: '',
+        arrival_time: '',
+        price_per_seat: ''
       });
-      setMessage('BUS ADDED SUCCESSFULLY');
+      setResponseMessage ('BUS ADDED SUCCESSFULLY!')
     } catch (error) {
       console.error('Error adding bus:', error);
-      setMessage('ERROR ADDING BUS');
     }
   };
 
-  const handleScheduleBus = async (e) => {
-    e.preventDefault();
+  const handleDeleteBus = async (busId) => {
     try {
-      const response = await axios.post('http://localhost:5555/scheduled-buses', schedulingDetails);
-      setScheduledBuses([...scheduledBuses, response.data]);
-      setSchedulingDetails({
-        busNumber: '',
-        route: '',
-        travelTime: ''
-      });
-      setMessage('BUS SCHEDULED SUCCESSFULLY');
-    } catch (error) {
-      console.error('Error scheduling bus:', error);
-      setMessage('ERROR SCHEDULING BUS');
-    }
-  };
-
-  const handleDeleteBus = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.delete(`http://localhost:5555/buses/${busNumberToDelete}`);
-      setBuses(buses.filter(bus => bus.busNumber !== busNumberToDelete));
-      setScheduledBuses(scheduledBuses.filter(bus => bus.busNumber !== busNumberToDelete));
-      setBusNumberToDelete('');
-      setMessage('BUS DELETED SUCCESSFULLY');
+      await axios.delete(`https://bus-booking-management-system1.onrender.com/buses/${busId}`);
+      console.log('Bus deleted:', busId);
+      setBuses(buses.filter(bus => bus.id !== busId));
     } catch (error) {
       console.error('Error deleting bus:', error);
-      setMessage('ERROR DELETING BUS');
     }
   };
 
@@ -104,139 +96,122 @@ const DriverDashboard = () => {
         <h2>Driver Dashboard</h2>
         <ul>
           <li onClick={() => handleNavClick('addBus')}>Add Bus</li>
-          <li onClick={() => handleNavClick('scheduleBus')}>Schedule Bus</li>
           <li onClick={() => handleNavClick('deleteBus')}>Delete Bus</li>
-          <li onClick={() => handleNavClick('search')}>Search</li>
           <li onClick={handleLogout}>Logout</li>
         </ul>
       </div>
 
       <div className="content">
-        {/* Notification Message */}
-        {message && (
-          <div className="notification">
-            <p>{message}</p>
-          </div>
-        )}
-
         {activeSection === 'addBus' && (
           <div className="form-section">
             <h2>Add New Bus</h2>
             <form onSubmit={handleAddBus}>
               <div className="form-group">
-                <label htmlFor="bus-number">Bus Number:</label>
+                <label htmlFor="driver-id">Driver ID:</label>
                 <input
                   type="text"
-                  id="bus-number"
-                  name="busNumber"
-                  value={busDetails.busNumber}
-                  onChange={(e) => setBusDetails({ ...busDetails, busNumber: e.target.value })}
+                  id="driver-id"
+                  name="driver_id"
+                  value={busDetails.driver_id}
+                  onChange={(e) => setBusDetails({ ...busDetails, driver_id: e.target.value })}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="seats">Seats:</label>
+                <label htmlFor="number-plate">Number Plate:</label>
+                <input
+                  type="text"
+                  id="number-plate"
+                  name="number_plate"
+                  value={busDetails.number_plate}
+                  onChange={(e) => setBusDetails({ ...busDetails, number_plate: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="seats">Number of Seats:</label>
                 <input
                   type="number"
                   id="seats"
-                  name="seats"
-                  value={busDetails.seats}
-                  onChange={(e) => setBusDetails({ ...busDetails, seats: e.target.value })}
+                  name="number_of_seats"
+                  value={busDetails.number_of_seats}
+                  onChange={(e) => setBusDetails({ ...busDetails, number_of_seats: e.target.value })}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="route">Route:</label>
+                <label htmlFor="departure-from">Departure From:</label>
                 <input
                   type="text"
-                  id="route"
-                  name="route"
-                  value={busDetails.route}
-                  onChange={(e) => setBusDetails({ ...busDetails, route: e.target.value })}
+                  id="departure-from"
+                  name="departure_from"
+                  value={busDetails.departure_from}
+                  onChange={(e) => setBusDetails({ ...busDetails, departure_from: e.target.value })}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="travel-time">Time of Travel:</label>
+                <label htmlFor="departure-to">Departure To:</label>
+                <input
+                  type="text"
+                  id="departure-to"
+                  name="departure_to"
+                  value={busDetails.departure_to}
+                  onChange={(e) => setBusDetails({ ...busDetails, departure_to: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="departure-time">Departure Time:</label>
                 <input
                   type="datetime-local"
-                  id="travel-time"
-                  name="travelTime"
-                  value={busDetails.travelTime}
-                  onChange={(e) => setBusDetails({ ...busDetails, travelTime: e.target.value })}
+                  id="departure-time"
+                  name="departure_time"
+                  value={busDetails.departure_time}
+                  onChange={(e) => setBusDetails({ ...busDetails, departure_time: e.target.value })}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="cost">Cost of Trip:</label>
+                <label htmlFor="arrival-time">Arrival Time:</label>
+                <input
+                  type="datetime-local"
+                  id="arrival-time"
+                  name="arrival_time"
+                  value={busDetails.arrival_time}
+                  onChange={(e) => setBusDetails({ ...busDetails, arrival_time: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="price-per-seat">Price per Seat:</label>
                 <input
                   type="number"
-                  id="cost"
-                  name="cost"
-                  value={busDetails.cost}
-                  onChange={(e) => setBusDetails({ ...busDetails, cost: e.target.value })}
+                  id="price-per-seat"
+                  name="price_per_seat"
+                  value={busDetails.price_per_seat}
+                  onChange={(e) => setBusDetails({ ...busDetails, price_per_seat: e.target.value })}
                   required
                 />
               </div>
               <button type="submit" className="submit-button">Add Bus</button>
             </form>
-          </div>
-        )}
-
-        {activeSection === 'scheduleBus' && (
-          <div className="form-section">
-            <h2>Schedule Bus</h2>
-            <form onSubmit={handleScheduleBus}>
-              <div className="form-group">
-                <label htmlFor="schedule-bus-number">Bus Number:</label>
-                <input
-                  type="text"
-                  id="schedule-bus-number"
-                  name="busNumber"
-                  value={schedulingDetails.busNumber}
-                  onChange={(e) => setSchedulingDetails({ ...schedulingDetails, busNumber: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="schedule-route">Route:</label>
-                <input
-                  type="text"
-                  id="schedule-route"
-                  name="route"
-                  value={schedulingDetails.route}
-                  onChange={(e) => setSchedulingDetails({ ...schedulingDetails, route: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="schedule-travel-time">Time of Travel:</label>
-                <input
-                  type="datetime-local"
-                  id="schedule-travel-time"
-                  name="travelTime"
-                  value={schedulingDetails.travelTime}
-                  onChange={(e) => setSchedulingDetails({ ...schedulingDetails, travelTime: e.target.value })}
-                  required
-                />
-              </div>
-              <button type="submit" className="submit-button">Schedule Bus</button>
-            </form>
+            {responseMessage && <p>{responseMessage}</p>}
           </div>
         )}
 
         {activeSection === 'deleteBus' && (
           <div className="form-section">
             <h2>Delete Bus</h2>
-            <form onSubmit={handleDeleteBus}>
+            <form onSubmit={(e) => { e.preventDefault(); handleDeleteBus(busIdToDelete); }}>
               <div className="form-group">
-                <label htmlFor="delete-bus-number">Bus Number:</label>
+                <label htmlFor="delete-bus-id">Bus ID:</label>
                 <input
                   type="text"
-                  id="delete-bus-number"
-                  name="busNumber"
-                  value={busNumberToDelete}
-                  onChange={(e) => setBusNumberToDelete(e.target.value)}
+                  id="delete-bus-id"
+                  name="busId"
+                  value={busIdToDelete}
+                  onChange={(e) => setBusIdToDelete(e.target.value)}
                   required
                 />
               </div>
@@ -247,32 +222,13 @@ const DriverDashboard = () => {
             <div className="bus-list">
               <h3>Available Buses for Deletion</h3>
               <ul>
-                {[...buses, ...scheduledBuses].map(bus => (
-                  <li key={bus.busNumber}>{`Bus Number: ${bus.busNumber}, Route: ${bus.route}, Time: ${bus.travelTime}`}</li>
+                {buses.map(bus => (
+                  <li key={bus.id}>
+                    {`Bus ID: ${bus.id}, Number Plate: ${bus.number_plate}, Route: ${bus.departure_from} to ${bus.departure_to}, Time: ${bus.departure_time} to ${bus.arrival_time}`}
+                    <button onClick={() => handleDeleteBus(bus.id)}>Delete</button>
+                  </li>
                 ))}
               </ul>
-            </div>
-          </div>
-        )}
-
-        {activeSection === 'search' && (
-          <div className="form-section">
-            <h2>Search Buses</h2>
-            <input
-              type="text"
-              placeholder="Search by route or bus number"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <div className="search-results">
-              {buses.filter(bus => bus.route.includes(searchQuery) || bus.busNumber.includes(searchQuery)).map(bus => (
-                <div key={bus.busNumber}>
-                  <h4>{`Bus Number: ${bus.busNumber}`}</h4>
-                  <p>{`Route: ${bus.route}`}</p>
-                  <p>{`Seats: ${bus.seats}`}</p>
-                  <p>{`Cost: ${bus.cost}`}</p>
-                </div>
-              ))}
             </div>
           </div>
         )}
