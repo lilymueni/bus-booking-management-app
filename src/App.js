@@ -9,7 +9,11 @@ import ReviewForm from './components/ReviewForm';
 import BookingForm from './components/BookingForm/BookingForm'; 
 // import UserDashboard from './components/home/Dashboard';
 import DriverDashboard from './components/DriverDashboard/DriverDashboard'
-
+import AdminDashboard from './components/AdminDashboard/AdminDashboard'; 
+import BookTickets from './components/BookTickets/BookTickets'; // Import BookTickets component
+import UserDashboard from './components/home/Dashboard';
+import TermsAndConditions from './components/Termsand Conditions/TermsAndConditions';
+import PrivacyPolicy from './components/Policy/PrivacyPolicy';
 // import PrivateRoute from './components/PrivateRoute'; 
 
 function App() {
