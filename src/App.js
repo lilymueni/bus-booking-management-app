@@ -7,7 +7,11 @@ import HomePage from './components/home/homepagelayout';
 import ContactForm from './components/ContactForm';
 import ReviewForm from './components/ReviewForm';
 import BookingForm from './components/BookingForm/BookingForm'; 
+import AdminDashboard from './components/AdminDashboard/AdminDashboard'; 
+import BookTickets from './components/BookTickets/BookTickets'; // Import BookTickets component
 import UserDashboard from './components/home/Dashboard';
+import TermsAndConditions from './components/Termsand Conditions/TermsAndConditions';
+import PrivacyPolicy from './components/Policy/PrivacyPolicy';
 
 import PrivateRoute from './components/PrivateRoute'; 
 
@@ -24,9 +28,11 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="book-tickets" element={<BookTickets />} /> {/* Add BookTickets route */}
           <Route path="contact-us" element={<ContactForm />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           {/* <Route path="home" element={<AdminDashboard/>} /> */}
         </Route>
-        <Route path="home" element={<AdminDashboard />} />
+        <Route path="home" element={<UserDashboard />} />
       </Routes>
     </Router>
   );
