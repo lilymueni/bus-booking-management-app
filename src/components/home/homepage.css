@@ -202,7 +202,7 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   width: 20%;
   text-align: center;
-  border-radius: 10%;
+  border-radius:5%;
   margin: 2rem; /* Add margin to create space between cards */
 }
 
@@ -252,4 +252,63 @@
   align-items: center;
   flex-direction: column; 
 }
+.services {
+  display: flex;
+  flex-direction: column; /* Arrange items vertically */
+  gap: 30px; /* Space between service items */
+  align-items: center; /* Center items horizontally */
+  margin: 5px auto; /* Center the section and add margin */
+  padding: 5px; /* Padding inside the section */
+  max-width: 1200px; /* Maximum width of the section */
+  font-size: larger;
+}
 
+.service-item {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Space between image and text */
+  padding: 20px; /* Padding inside each service item */
+  background-color: #ffffff; /* Background color for the service item */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for floating effect */
+  border-radius: 8px; /* Rounded corners */
+  width: 100%; /* Full width of the section */
+  max-width: 800px; /* Maximum width for each service item */
+  position: relative; /* Positioning context for adjustments */
+}
+
+.service-item.reverse {
+  flex-direction: row-reverse; /* Reverse the order for text and image */
+}
+
+.service-item:nth-of-type(1) {
+  margin-left: -800px; /* Move the first div slightly to the left */
+}
+
+.service-item:nth-of-type(2) {
+  margin-left: 800px; /* Move the second div slightly to the right */
+}
+
+.service-image {
+  width: 100%; /* Full width of the image container */
+  max-width: 500px; /* Increase max width for images */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 350px; /* Increase max height for images */
+  object-fit: cover; /* Ensure image covers the area */
+  border-radius: 8px; /* Optional: rounded corners */
+}
+
+.service-text {
+  max-width: 100%; /* Full width of the text container */
+}
+
+.service-text h3 {
+  color: #000000;
+  font-size: 28px; /* Increased heading size */
+  margin-bottom: 20px; /* Increased margin below heading */
+}
+
+.service-text p {
+  color: #4d4d4d;
+  font-size: 20px; /* Increased text size */
+  line-height: 1.6; /* Increased line height for readability */
+}
