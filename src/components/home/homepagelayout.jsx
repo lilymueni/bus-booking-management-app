@@ -14,7 +14,7 @@ const HomePageLayout = () => {
       </section>
       <header className="hero">
         <div className="hero-content">
-          <img src="https://media.istockphoto.com/id/1472071952/vector/electric-city-bus-charging-station-with-green-city-city-building-in-background-vector.jpg?s=612x612&w=0&k=20&c=mpWPr_3_9YAlQIQ4EArllVY910o9lb3yMtbEUo7kcyo=" />
+       <img src="https://media.istockphoto.com/id/1472071952/vector/electric-city-bus-charging-station-with-green-city-city-building-in-background-vector.jpg?s=612x612&w=0&k=20&c=mpWPr_3_9YAlQIQ4EArllVY910o9lb3yMtbEUo7kcyo=" />
         </div>
       </header>
      

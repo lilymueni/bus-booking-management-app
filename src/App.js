@@ -13,7 +13,6 @@ import UserDashboard from './components/home/Dashboard';
 import TermsAndConditions from './components/Termsand Conditions/TermsAndConditions';
 import PrivacyPolicy from './components/Policy/PrivacyPolicy';
 
-import PrivateRoute from './components/PrivateRoute'; 
 
 function App() {
   return (
@@ -32,7 +31,7 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           {/* <Route path="home" element={<AdminDashboard/>} /> */}
         </Route>
-        <Route path="home" element={<UserDashboard />} />
+        <Route path="home" element={<DriverDashboard/>} />
       </Routes>
     </Router>
   );
