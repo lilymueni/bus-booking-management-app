@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css';
 
@@ -6,129 +7,217 @@ const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
   const [buses, setBuses] = useState([]);
   const [busDetails, setBusDetails] = useState({
-    busNumber: '',
-    seats: '',
-    route: '',
-    travelTime: '',
-    cost: ''
+    driver_id: '',
+    number_plate: '',
+    number_of_seats: '',
+    departure_from: '',
+    departure_to: '',
+    departure_time: '',
+    arrival_time: '',
+    price_per_seat: ''
   });
   const [busNumberToDelete, setBusNumberToDelete] = useState('');
   const [schedules, setSchedules] = useState([]);
   const [scheduleDetails, setScheduleDetails] = useState({
-    busNumber: '',
-    route: '',
-    departureTime: '',
-    arrivalTime: ''
+    number_plate: '',
+    departure_from: '',
+    departure_to: '',
+    departure_time: '',
+    arrival_time: ''
   });
   const [scheduleIdToDelete, setScheduleIdToDelete] = useState('');
   const [drivers, setDrivers] = useState([]);
   const [driverDetails, setDriverDetails] = useState({
-    driverName: '',
-    driverLicense: ''
+    driver_id: '',
+    driver_name: '',
+    driver_license: ''
   });
   const [driverNameToDelete, setDriverNameToDelete] = useState('');
   const [bookings, setBookings] = useState([]);
   const [bookingDetails, setBookingDetails] = useState({
-    bookingId: '',
-    busNumber: '',
-    passengerName: '',
-    seatsBooked: ''
+    booking_id: '',
+    number_plate: '',
+    passenger_name: '',
+    seats_booked: ''
   });
   const [bookingIdToDelete, setBookingIdToDelete] = useState('');
-  const [searchQuery, setSearchQuery] = useState(''); // New state for search query
+  const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchBuses();
+    fetchSchedules();
+    fetchDrivers();
+    fetchBookings();
+  }, []);
+
+  const fetchBuses = async () => {
+    try {
+      const response = await axios.get('https://bus-booking-management-system1.onrender.com/buses');
+      setBuses(response.data);
+    } catch (error) {
+      console.error('Error fetching buses:', error);
+    }
+  };
+
+  const fetchSchedules = async () => {
+    try {
+      const response = await axios.get('https://bus-booking-management-system1.onrender.com/schedules');
+      setSchedules(response.data);
+    } catch (error) {
+      console.error('Error fetching schedules:', error);
+    }
+  };
+
+  const fetchDrivers = async () => {
+    try {
+      const response = await axios.get('https://bus-booking-management-system1.onrender.com/drivers');
+      setDrivers(response.data);
+    } catch (error) {
+      console.error('Error fetching drivers:', error);
+    }
+  };
+
+  const fetchBookings = async () => {
+    try {
+      const response = await axios.get('https://bus-booking-management-system1.onrender.com/bookings');
+      setBookings(response.data);
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+    }
+  };
 
   const handleNavClick = (section) => {
     setActiveSection(section);
   };
 
-  const handleAddBus = (e) => {
+  const handleAddBus = async (e) => {
     e.preventDefault();
-    const newBus = {
-      busNumber: busDetails.busNumber,
-      seats: busDetails.seats,
-      route: busDetails.route,
-      travelTime: busDetails.travelTime,
-      cost: busDetails.cost
-    };
-    setBuses([...buses, newBus]);
-    setBusDetails({
-      busNumber: '',
-      seats: '',
-      route: '',
-      travelTime: '',
-      cost: ''
-    });
+    try {
+      await axios.post('https://bus-booking-management-system1.onrender.com/buses', busDetails);
+      fetchBuses();
+      setMessage('Bus added successfully!');
+      setBusDetails({
+        driver_id: '',
+        number_plate: '',
+        number_of_seats: '',
+        departure_from: '',
+        departure_to: '',
+        departure_time: '',
+        arrival_time: '',
+        price_per_seat: ''
+      });
+    } catch (error) {
+      console.error('Error adding bus:', error);
+      setMessage('Failed to add bus.');
+    }
   };
 
-  const handleDeleteBus = (e) => {
+  const handleDeleteBus = async (e) => {
     e.preventDefault();
-    setBuses(buses.filter(bus => bus.busNumber !== busNumberToDelete));
-    setBusNumberToDelete('');
+    try {
+      await axios.delete(`https://bus-booking-management-system1.onrender.com/buses/${busNumberToDelete}`);
+      fetchBuses();
+      setMessage('Bus deleted successfully!');
+      setBusNumberToDelete('');
+    } catch (error) {
+      console.error('Error deleting bus:', error);
+      setMessage('Failed to delete bus.');
+    }
   };
 
-  const handleAddSchedule = (e) => {
+  const handleAddSchedule = async (e) => {
     e.preventDefault();
-    const newSchedule = {
-      id: schedules.length + 1,
-      busNumber: scheduleDetails.busNumber,
-      route: scheduleDetails.route,
-      departureTime: scheduleDetails.departureTime,
-      arrivalTime: scheduleDetails.arrivalTime
-    };
-    setSchedules([...schedules, newSchedule]);
-    setScheduleDetails({
-      busNumber: '',
-      route: '',
-      departureTime: '',
-      arrivalTime: ''
-    });
+    try {
+      await axios.post('https://bus-booking-management-system1.onrender.com/schedules', scheduleDetails);
+      fetchSchedules();
+      setMessage('Schedule added successfully!');
+      setScheduleDetails({
+        number_plate: '',
+        departure_from: '',
+        departure_to: '',
+        departure_time: '',
+        arrival_time: ''
+      });
+    } catch (error) {
+      console.error('Error adding schedule:', error);
+      setMessage('Failed to add schedule.');
+    }
   };
 
-  const handleDeleteSchedule = (e) => {
+  const handleDeleteSchedule = async (e) => {
     e.preventDefault();
-    setSchedules(schedules.filter(schedule => schedule.id !== parseInt(scheduleIdToDelete)));
-    setScheduleIdToDelete('');
+    try {
+      await axios.delete(`https://bus-booking-management-system1.onrender.com/schedules/${scheduleIdToDelete}`);
+      fetchSchedules();
+      setMessage('Schedule deleted successfully!');
+      setScheduleIdToDelete('');
+    } catch (error) {
+      console.error('Error deleting schedule:', error);
+      setMessage('Failed to delete schedule.');
+    }
   };
 
-  const handleAddDriver = (e) => {
+  const handleAddDriver = async (e) => {
     e.preventDefault();
-    const newDriver = {
-      name: driverDetails.driverName,
-      license: driverDetails.driverLicense
-    };
-    setDrivers([...drivers, newDriver]);
-    setDriverDetails({ driverName: '', driverLicense: '' });
+    try {
+      await axios.post('https://bus-booking-management-system1.onrender.com/drivers', driverDetails);
+      fetchDrivers();
+      setMessage('Driver added successfully!');
+      setDriverDetails({
+        driver_id: '',
+        driver_name: '',
+        driver_license: ''
+      });
+    } catch (error) {
+      console.error('Error adding driver:', error);
+      setMessage('Failed to add driver.');
+    }
   };
 
-  const handleDeleteDriver = (e) => {
+  const handleDeleteDriver = async (e) => {
     e.preventDefault();
-    setDrivers(drivers.filter(driver => driver.name !== driverNameToDelete));
-    setDriverNameToDelete('');
+    try {
+      await axios.delete(`https://bus-booking-management-system1.onrender.com/drivers/${driverNameToDelete}`);
+      fetchDrivers();
+      setMessage('Driver deleted successfully!');
+      setDriverNameToDelete('');
+    } catch (error) {
+      console.error('Error deleting driver:', error);
+      setMessage('Failed to delete driver.');
+    }
   };
 
-  const handleAddBooking = (e) => {
+  const handleAddBooking = async (e) => {
     e.preventDefault();
-    const newBooking = {
-      id: bookings.length + 1,
-      busNumber: bookingDetails.busNumber,
-      passengerName: bookingDetails.passengerName,
-      seatsBooked: bookingDetails.seatsBooked
-    };
-    setBookings([...bookings, newBooking]);
-    setBookingDetails({
-      bookingId: '',
-      busNumber: '',
-      passengerName: '',
-      seatsBooked: ''
-    });
+    try {
+      await axios.post('https://bus-booking-management-system1.onrender.com/bookings', bookingDetails);
+      fetchBookings();
+      setMessage('Booking added successfully!');
+      setBookingDetails({
+        booking_id: '',
+        number_plate: '',
+        passenger_name: '',
+        seats_booked: ''
+      });
+    } catch (error) {
+      console.error('Error adding booking:', error);
+      setMessage('Failed to add booking.');
+    }
   };
 
-  const handleDeleteBooking = (e) => {
+  const handleDeleteBooking = async (e) => {
     e.preventDefault();
-    setBookings(bookings.filter(booking => booking.id !== parseInt(bookingIdToDelete)));
-    setBookingIdToDelete('');
+    try {
+      await axios.delete(`https://bus-booking-management-system1.onrender.com/bookings/${bookingIdToDelete}`);
+      fetchBookings();
+      setMessage('Booking deleted successfully!');
+      setBookingIdToDelete('');
+    } catch (error) {
+      console.error('Error deleting booking:', error);
+      setMessage('Failed to delete booking.');
+    }
   };
 
   const handleLogout = () => {
@@ -146,29 +235,25 @@ const AdminDashboard = () => {
           <li>
             Buses
             <ul>
-              <li onClick={() => handleNavClick('deleteBus')}>Delete Bus</li>
-              <li onClick={() => handleNavClick('addBus')}>Add Bus</li>
+              <li onClick={() => handleNavClick('manageBuses')}>Manage Buses</li>
             </ul>
           </li>
           <li>
             Schedules
             <ul>
               <li onClick={() => handleNavClick('manageSchedules')}>Manage Schedules</li>
-              <li onClick={() => handleNavClick('viewSchedules')}>View Schedules</li>
+            </ul>
+          </li>
+          <li>
+            Drivers
+            <ul>
+              <li onClick={() => handleNavClick('manageDrivers')}>Manage Drivers</li>
             </ul>
           </li>
           <li>
             Bookings
             <ul>
               <li onClick={() => handleNavClick('manageBookings')}>Manage Bookings</li>
-              <li onClick={() => handleNavClick('bookingHistory')}>Booking History</li>
-            </ul>
-          </li>
-          <li>
-            Driver
-            <ul>
-              <li onClick={() => handleNavClick('manageUsers')}>Delete Driver</li>
-              <li onClick={() => handleNavClick('addUser')}>Add Driver</li>
             </ul>
           </li>
           <li onClick={handleLogout}>Logout</li>
@@ -177,6 +262,7 @@ const AdminDashboard = () => {
 
       <div className="content">
         <h1>Dashboard Overview</h1>
+        {message && <div className="message">{message}</div>}
         <div className="stats">
           <div>
             <h2>Total Buses</h2>
@@ -196,89 +282,106 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <h2>Recent Activities</h2>
-        {/* Add recent activities content here */}
-
-        {activeSection === 'addBus' && (
+        {activeSection === 'manageBuses' && (
           <div className="form-section">
-            <h2>Add New Bus</h2>
+            <h2>Manage Buses</h2>
             <form onSubmit={handleAddBus}>
               <div className="form-group">
-                <label htmlFor="bus-number">Bus Number:</label>
+                <label htmlFor="number-plate">Number Plate:</label>
                 <input
                   type="text"
-                  id="bus-number"
-                  name="busNumber"
-                  value={busDetails.busNumber}
-                  onChange={(e) => setBusDetails({ ...busDetails, busNumber: e.target.value })}
+                  id="number-plate"
+                  value={busDetails.number_plate}
+                  onChange={(e) => setBusDetails({ ...busDetails, number_plate: e.target.value })}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="seats">Seats:</label>
-                <input
-                  type="number"
-                  id="seats"
-                  name="seats"
-                  value={busDetails.seats}
-                  onChange={(e) => setBusDetails({ ...busDetails, seats: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="route">Route:</label>
+                <label htmlFor="driver-id">Driver ID:</label>
                 <input
                   type="text"
-                  id="route"
-                  name="route"
-                  value={busDetails.route}
-                  onChange={(e) => setBusDetails({ ...busDetails, route: e.target.value })}
+                  id="driver-id"
+                  value={busDetails.driver_id}
+                  onChange={(e) => setBusDetails({ ...busDetails, driver_id: e.target.value })}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="travel-time">Time of Travel:</label>
-                <input
-                  type="datetime-local"
-                  id="travel-time"
-                  name="travelTime"
-                  value={busDetails.travelTime}
-                  onChange={(e) => setBusDetails({ ...busDetails, travelTime: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="cost">Cost of Trip:</label>
+                <label htmlFor="number-of-seats">Number of Seats:</label>
                 <input
                   type="number"
-                  id="cost"
-                  name="cost"
-                  value={busDetails.cost}
-                  onChange={(e) => setBusDetails({ ...busDetails, cost: e.target.value })}
+                  id="number-of-seats"
+                  value={busDetails.number_of_seats}
+                  onChange={(e) => setBusDetails({ ...busDetails, number_of_seats: e.target.value })}
                   required
                 />
               </div>
-              <button type="submit" className="submit-button">Add Bus</button>
+              <div className="form-group">
+                <label htmlFor="departure-from">Departure From:</label>
+                <input
+                  type="text"
+                  id="departure-from"
+                  value={busDetails.departure_from}
+                  onChange={(e) => setBusDetails({ ...busDetails, departure_from: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="departure-to">Departure To:</label>
+                <input
+                  type="text"
+                  id="departure-to"
+                  value={busDetails.departure_to}
+                  onChange={(e) => setBusDetails({ ...busDetails, departure_to: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="departure-time">Departure Time:</label>
+                <input
+                  type="time"
+                  id="departure-time"
+                  value={busDetails.departure_time}
+                  onChange={(e) => setBusDetails({ ...busDetails, departure_time: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="arrival-time">Arrival Time:</label>
+                <input
+                  type="time"
+                  id="arrival-time"
+                  value={busDetails.arrival_time}
+                  onChange={(e) => setBusDetails({ ...busDetails, arrival_time: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="price-per-seat">Price per Seat:</label>
+                <input
+                  type="number"
+                  id="price-per-seat"
+                  value={busDetails.price_per_seat}
+                  onChange={(e) => setBusDetails({ ...busDetails, price_per_seat: e.target.value })}
+                  required
+                />
+              </div>
+              <button type="submit">Add Bus</button>
             </form>
-          </div>
-        )}
 
-        {activeSection === 'deleteBus' && (
-          <div className="form-section">
-            <h2>Delete Bus</h2>
             <form onSubmit={handleDeleteBus}>
+              <h3>Delete Bus</h3>
               <div className="form-group">
-                <label htmlFor="bus-number">Bus Number:</label>
+                <label htmlFor="bus-number-delete">Bus Number:</label>
                 <input
                   type="text"
-                  id="bus-number"
-                  name="busNumber"
+                  id="bus-number-delete"
                   value={busNumberToDelete}
                   onChange={(e) => setBusNumberToDelete(e.target.value)}
                   required
                 />
               </div>
-              <button type="submit" className="submit-button">Delete Bus</button>
+              <button type="submit">Delete Bus</button>
             </form>
           </div>
         )}
@@ -288,180 +391,96 @@ const AdminDashboard = () => {
             <h2>Manage Schedules</h2>
             <form onSubmit={handleAddSchedule}>
               <div className="form-group">
-                <label htmlFor="schedule-bus-number">Bus Number:</label>
+                <label htmlFor="number-plate">Number Plate:</label>
                 <input
                   type="text"
-                  id="schedule-bus-number"
-                  name="busNumber"
-                  value={scheduleDetails.busNumber}
-                  onChange={(e) => setScheduleDetails({ ...scheduleDetails, busNumber: e.target.value })}
+                  id="number-plate"
+                  value={scheduleDetails.number_plate}
+                  onChange={(e) => setScheduleDetails({ ...scheduleDetails, number_plate: e.target.value })}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="schedule-route">Route:</label>
+                <label htmlFor="departure-from">Departure From:</label>
                 <input
                   type="text"
-                  id="schedule-route"
-                  name="route"
-                  value={scheduleDetails.route}
-                  onChange={(e) => setScheduleDetails({ ...scheduleDetails, route: e.target.value })}
+                  id="departure-from"
+                  value={scheduleDetails.departure_from}
+                  onChange={(e) => setScheduleDetails({ ...scheduleDetails, departure_from: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="departure-to">Departure To:</label>
+                <input
+                  type="text"
+                  id="departure-to"
+                  value={scheduleDetails.departure_to}
+                  onChange={(e) => setScheduleDetails({ ...scheduleDetails, departure_to: e.target.value })}
                   required
                 />
               </div>
               <div className="form-group">
                 <label htmlFor="departure-time">Departure Time:</label>
                 <input
-                  type="datetime-local"
+                  type="time"
                   id="departure-time"
-                  name="departureTime"
-                  value={scheduleDetails.departureTime}
-                  onChange={(e) => setScheduleDetails({ ...scheduleDetails, departureTime: e.target.value })}
+                  value={scheduleDetails.departure_time}
+                  onChange={(e) => setScheduleDetails({ ...scheduleDetails, departure_time: e.target.value })}
                   required
                 />
               </div>
               <div className="form-group">
                 <label htmlFor="arrival-time">Arrival Time:</label>
                 <input
-                  type="datetime-local"
+                  type="time"
                   id="arrival-time"
-                  name="arrivalTime"
-                  value={scheduleDetails.arrivalTime}
-                  onChange={(e) => setScheduleDetails({ ...scheduleDetails, arrivalTime: e.target.value })}
+                  value={scheduleDetails.arrival_time}
+                  onChange={(e) => setScheduleDetails({ ...scheduleDetails, arrival_time: e.target.value })}
                   required
                 />
               </div>
-              <button type="submit" className="submit-button">Add Schedule</button>
+              <button type="submit">Add Schedule</button>
             </form>
 
             <form onSubmit={handleDeleteSchedule}>
+              <h3>Delete Schedule</h3>
               <div className="form-group">
-                <label htmlFor="schedule-id">Schedule ID:</label>
+                <label htmlFor="schedule-id-delete">Schedule ID:</label>
                 <input
-                  type="number"
-                  id="schedule-id"
-                  name="scheduleId"
+                  type="text"
+                  id="schedule-id-delete"
                   value={scheduleIdToDelete}
                   onChange={(e) => setScheduleIdToDelete(e.target.value)}
                   required
                 />
               </div>
-              <button type="submit" className="submit-button">Delete Schedule</button>
+              <button type="submit">Delete Schedule</button>
             </form>
           </div>
         )}
 
-        {activeSection === 'viewSchedules' && (
+        {activeSection === 'manageDrivers' && (
           <div className="form-section">
-            <h2>View Schedules</h2>
-            <ul>
-              {schedules.map(schedule => (
-                <li key={schedule.id}>
-                  <strong>Bus Number:</strong> {schedule.busNumber}, 
-                  <strong>Route:</strong> {schedule.route}, 
-                  <strong>Departure Time:</strong> {schedule.departureTime}, 
-                  <strong>Arrival Time:</strong> {schedule.arrivalTime}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {activeSection === 'manageBookings' && (
-          <div className="form-section">
-            <h2>Manage Bookings</h2>
-            <form onSubmit={handleAddBooking}>
-              <div className="form-group">
-                <label htmlFor="booking-bus-number">Bus Number:</label>
-                <input
-                  type="text"
-                  id="booking-bus-number"
-                  name="busNumber"
-                  value={bookingDetails.busNumber}
-                  onChange={(e) => setBookingDetails({ ...bookingDetails, busNumber: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="passenger-name">Passenger Name:</label>
-                <input
-                  type="text"
-                  id="passenger-name"
-                  name="passengerName"
-                  value={bookingDetails.passengerName}
-                  onChange={(e) => setBookingDetails({ ...bookingDetails, passengerName: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="seats-booked">Seats Booked:</label>
-                <input
-                  type="number"
-                  id="seats-booked"
-                  name="seatsBooked"
-                  value={bookingDetails.seatsBooked}
-                  onChange={(e) => setBookingDetails({ ...bookingDetails, seatsBooked: e.target.value })}
-                  required
-                />
-              </div>
-              <button type="submit" className="submit-button">Add Booking</button>
-            </form>
-
-            <form onSubmit={handleDeleteBooking}>
-              <div className="form-group">
-                <label htmlFor="booking-id">Booking ID:</label>
-                <input
-                  type="number"
-                  id="booking-id"
-                  name="bookingId"
-                  value={bookingIdToDelete}
-                  onChange={(e) => setBookingIdToDelete(e.target.value)}
-                  required
-                />
-              </div>
-              <button type="submit" className="submit-button">Delete Booking</button>
-            </form>
-
-            {/* Search Input for Bookings */}
-            <div className="form-group">
-              <label htmlFor="booking-search">Search Bookings:</label>
-              <input
-                type="text"
-                id="booking-search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by Passenger Name"
-              />
-            </div>
-
-            <h2>Current Bookings</h2>
-            <ul>
-              {bookings
-                .filter(booking => booking.passengerName.toLowerCase().includes(searchQuery.toLowerCase())) // Filtering bookings based on search query
-                .map(booking => (
-                  <li key={booking.id}>
-                    <strong>Booking ID:</strong> {booking.id}, 
-                    <strong>Bus Number:</strong> {booking.busNumber}, 
-                    <strong>Passenger Name:</strong> {booking.passengerName}, 
-                    <strong>Seats Booked:</strong> {booking.seatsBooked}
-                  </li>
-                ))}
-            </ul>
-          </div>
-        )}
-
-        {activeSection === 'addUser' && (
-          <div className="form-section">
-            <h2>Add New Driver</h2>
+            <h2>Manage Drivers</h2>
             <form onSubmit={handleAddDriver}>
+              <div className="form-group">
+                <label htmlFor="driver-id">Driver ID:</label>
+                <input
+                  type="text"
+                  id="driver-id"
+                  value={driverDetails.driver_id}
+                  onChange={(e) => setDriverDetails({ ...driverDetails, driver_id: e.target.value })}
+                  required
+                />
+              </div>
               <div className="form-group">
                 <label htmlFor="driver-name">Driver Name:</label>
                 <input
                   type="text"
                   id="driver-name"
-                  name="driverName"
-                  value={driverDetails.driverName}
-                  onChange={(e) => setDriverDetails({ ...driverDetails, driverName: e.target.value })}
+                  value={driverDetails.driver_name}
+                  onChange={(e) => setDriverDetails({ ...driverDetails, driver_name: e.target.value })}
                   required
                 />
               </div>
@@ -470,39 +489,108 @@ const AdminDashboard = () => {
                 <input
                   type="text"
                   id="driver-license"
-                  name="driverLicense"
-                  value={driverDetails.driverLicense}
-                  onChange={(e) => setDriverDetails({ ...driverDetails, driverLicense: e.target.value })}
+                  value={driverDetails.driver_license}
+                  onChange={(e) => setDriverDetails({ ...driverDetails, driver_license: e.target.value })}
                   required
                 />
               </div>
-              <button type="submit" className="submit-button">Add Driver</button>
+              <button type="submit">Add Driver</button>
             </form>
-          </div>
-        )}
 
-        {activeSection === 'manageUsers' && (
-          <div className="form-section">
-            <h2>Delete Driver</h2>
             <form onSubmit={handleDeleteDriver}>
+              <h3>Delete Driver</h3>
               <div className="form-group">
-                <label htmlFor="driver-name">Driver Name:</label>
+                <label htmlFor="driver-name-delete">Driver Name:</label>
                 <input
                   type="text"
-                  id="driver-name"
-                  name="driverName"
+                  id="driver-name-delete"
                   value={driverNameToDelete}
                   onChange={(e) => setDriverNameToDelete(e.target.value)}
                   required
                 />
               </div>
-              <button type="submit" className="submit-button">Delete Driver</button>
+              <button type="submit">Delete Driver</button>
+            </form>
+          </div>
+        )}
+
+        {activeSection === 'manageBookings' && (
+          <div className="form-section">
+            <h2>Manage Bookings</h2>
+            <form onSubmit={handleAddBooking}>
+              <div className="form-group">
+                <label htmlFor="booking-id">Booking ID:</label>
+                <input
+                  type="text"
+                  id="booking-id"
+                  value={bookingDetails.booking_id}
+                  onChange={(e) => setBookingDetails({ ...bookingDetails, booking_id: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="number-plate">Number Plate:</label>
+                <input
+                  type="text"
+                  id="number-plate"
+                  value={bookingDetails.number_plate}
+                  onChange={(e) => setBookingDetails({ ...bookingDetails, number_plate: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="passenger-name">Passenger Name:</label>
+                <input
+                  type="text"
+                  id="passenger-name"
+                  value={bookingDetails.passenger_name}
+                  onChange={(e) => setBookingDetails({ ...bookingDetails, passenger_name: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="seats-booked">Seats Booked:</label>
+                <input
+                  type="number"
+                  id="seats-booked"
+                  value={bookingDetails.seats_booked}
+                  onChange={(e) => setBookingDetails({ ...bookingDetails, seats_booked: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="total-amount">Total Amount:</label>
+                <input
+                  type="number"
+                  id="total-amount"
+                  value={bookingDetails.total_amount}
+                  onChange={(e) => setBookingDetails({ ...bookingDetails, total_amount: e.target.value })}
+                  required
+                />
+              </div>
+              <button type="submit">Add Booking</button>
+            </form>
+
+            <form onSubmit={handleDeleteBooking}>
+              <h3>Delete Booking</h3>
+              <div className="form-group">
+                <label htmlFor="booking-id-delete">Booking ID:</label>
+                <input
+                  type="text"
+                  id="booking-id-delete"
+                  value={bookingIdToDelete}
+                  onChange={(e) => setBookingIdToDelete(e.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit">Delete Booking</button>
             </form>
           </div>
         )}
       </div>
     </div>
   );
-};
+}
 
 export default AdminDashboard;
+
