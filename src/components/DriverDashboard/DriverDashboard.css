@@ -4,21 +4,21 @@ nav {
   top: 0;
   width: 100%;
   z-index: 1000;
-  background-color: powderblue; /* Updated background color */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  background-color: powderblue; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .navbar {
   display: flex;
-  justify-content: space-between; /* Space between title and buttons */
+  justify-content: space-between; 
   align-items: center;
   padding: 10px;
-  background-color: #007bff; /* Blue theme color */
+  background-color: #007bff; 
 }
 
 .navbar h2 {
   margin: 0;
-  color: #fff; /* White text for the title */
+  color: #fff; 
 }
 
 .navbar ul {
@@ -26,7 +26,7 @@ nav {
   display: flex;
   margin: 0;
   padding: 0;
-  margin-left: auto; /* Pushes the buttons to the right */
+  margin-left: auto; 
   align-items: center;
 }
 
@@ -35,8 +35,8 @@ nav {
 }
 
 .navbar-button {
-  color: #fff; /* White text color */
-  background-color: blue; /* Darker blue for the button */
+  color: #fff; 
+  background-color: blue; 
   border: none;
   padding: 10px 15px;
   text-transform: uppercase;
@@ -46,7 +46,7 @@ nav {
 }
 
 .navbar-button:hover {
-  background-color: #1d88f3; /* Even darker blue on hover */
+  background-color: #1d88f3; 
 }
 
 /* Welcome Section */
@@ -62,19 +62,19 @@ nav {
   text-align: center;
   margin: 20px;
   padding: 3rem;
-  background-color: #f0f0f0; /* Light background for contrast */
+  background-color: #f0f0f0; 
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 /* Form Section Styles */
 .form-section {
-  background-color: #fff; /* White background for forms */
+  background-color: #fff; 
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
   max-width: 500px;
-  margin: 2rem auto; /* Center the form section */
+  margin: 2rem auto; 
 }
 
 .form-group {
@@ -94,8 +94,8 @@ nav {
 
 /* Submit Button */
 .submit-button {
-  background-color: #4CAF50; /* Green background */
-  color: white; /* White text */
+  background-color: #4CAF50; 
+  color: white; 
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -104,7 +104,7 @@ nav {
 }
 
 .submit-button:hover {
-  background-color: #45a049; /* Darker green on hover */
+  background-color: #45a049; 
 }
 
 /* Bus Table Styles */
