@@ -38,7 +38,7 @@ const Register = () => {
           password
         });
 
-        navigate('/home');
+        navigate('/register');
       } catch (err) {
         setErrorMessage('Failed to create account');
         setIsRegistering(false);
