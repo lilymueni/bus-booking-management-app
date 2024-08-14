@@ -9,40 +9,47 @@ nav {
 }
 
 .navbar {
-  background-color: rgb(0, 123, 255); /* Blue Header */
-  color: #802126;
-  padding: 1rem;
+  display: flex;
+  justify-content: space-between; /* Space between title and buttons */
+  align-items: center;
+  padding: 10px;
+  background-color: #007bff; /* Blue theme color */
 }
 
 .navbar h2 {
   margin: 0;
+  color: #fff; /* White text for the title */
 }
 
 .navbar ul {
   list-style: none;
-  padding: 0;
   display: flex;
-  justify-content: space-around;
-  text-align: right;
+  margin: 0;
+  padding: 0;
+  margin-left: auto; /* Pushes the buttons to the right */
+  align-items: center;
+}
+
+.navbar ul li {
+  margin-left: 20px;
 }
 
 .navbar-button {
-  margin: 0 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  color: black; /* Text color for buttons */
-  background-color: blue; /* Background color for buttons */
+  color: #fff; /* White text color */
+  background-color: blue; /* Darker blue for the button */
   border: none;
-  border-radius: 4px;
-  text-decoration: none;
-  display: inline-block;
-  text-align: end;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
 }
 
 .navbar-button:hover {
-  background-color: blue; /* Slightly darker shade for button hover effect */
+  background-color: #1d88f3; /* Even darker blue on hover */
 }
 
+/* Welcome Section */
 .welcome-section {
   padding: 2rem;
   text-align: center;
@@ -50,117 +57,68 @@ nav {
   border-bottom: 2px solid #dee2e6;
 }
 
-.welcome-section h2 {
-  margin: 0 0 1rem;
-}
-
-.welcome-section p {
-  margin: 0;
-}
+/* Dashboard Section */
 .dashboard-section {
   text-align: center;
-  padding: 3rem; /* Increased padding for a larger section */
+  margin: 20px;
+  padding: 3rem;
   background-color: #f0f0f0; /* Light background for contrast */
-  border-radius: 8px; /* Rounded corners */
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  margin: 2rem; /* Margin to separate from other content */
 }
-
-.dashboard-section h1 {
-  margin-bottom: 1.5rem;
-  font-size: 2rem; /* Larger font size for the heading */
-  color: #333; /* Darker color for better readability */
-}
-
-.dashboard-section p {
-  margin-bottom: 2rem;
-  font-size: 1.2rem; /* Slightly larger font size for the paragraph */
-  color: #555; /* Medium color for text */
-}
-
-.dashboard-image img {
-  width: 30%;
-  height: auto;
-  border: 3px solid #ddd; /* Thicker border for the image */
-  border-radius: 8px; /* Rounded corners for the image */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the image */
-}
-
 
 /* Form Section Styles */
 .form-section {
   background-color: #fff; /* White background for forms */
-  padding: 2rem; /* Padding for form content */
-  border-radius: 8px; /* Rounded corners for the form */
+  padding: 2rem;
+  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
-  max-width: 500px; /* Max width for form section */
-  margin: 2rem auto; /* Center the form section with margin */
-  font-family: Arial, sans-serif; /* Font for the form */
-}
-
-.form-section h2 {
-  color: maroon; /* Heading color */
-  text-align: center; /* Center align heading */
-  margin-bottom: 1rem; /* Margin below heading */
-}
-
-.form-section form {
-  display: flex; /* Flexbox for form layout */
-  flex-direction: column; /* Column layout for form elements */
+  max-width: 500px;
+  margin: 2rem auto; /* Center the form section */
 }
 
 .form-group {
-  margin-bottom: 1rem; /* Margin for form groups */
-}
-
-.form-group label {
-  color: maroon; /* Label color */
-  margin-bottom: 0.5rem; /* Margin below label */
-  font-weight: bold; /* Bold font for label */
+  margin-bottom: 1rem;
 }
 
 .form-group input,
 .form-group textarea {
-  padding: 0.5rem; /* Padding inside inputs and textareas */
-  border: 1px solid #ddd; /* Border color */
-  border-radius: 8px; /* Rounded corners for inputs and textareas */
-  font-size: 1rem; /* Font size */
-  margin-bottom: 1rem; /* Margin below inputs and textareas */
-  width: 100%; /* Full width */
-  box-sizing: border-box; /* Include padding and border in element's total width and height */
-  text-align: left; /* Align text to the left */
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.form-group textarea {
-  resize: vertical; /* Allow vertical resizing for textarea */
-  min-height: 100px; /* Minimum height for textarea */
-}
-
+/* Submit Button */
 .submit-button {
-  padding: 0.75rem; /* Padding inside the button */
-  font-size: 1rem; /* Font size for button text */
-  color: white; /* Text color for button */
-  background-color: brown; /* Background color for button */
-  border: none; /* Remove border */
-  border-radius: 8px; /* Rounded corners for button */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s; /* Smooth background color transition */
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .submit-button:hover {
-  background-color: darkred; /* Darker color on hover */
+  background-color: #45a049; /* Darker green on hover */
 }
 
-/* Bus List Styles */
-.bus-list {
-  margin-top: 1rem;
+/* Bus Table Styles */
+.bus-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-.bus-list ul {
-  list-style: none;
-  padding: 0;
+.bus-table th, .bus-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
-.bus-list li {
-  margin-bottom: 0.5rem;
+.bus-table th {
+  background-color: #f2f2f2;
 }
