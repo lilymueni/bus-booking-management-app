@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import DriverDashboard from '../DriverDashboard/DriverDashboard';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
-import AccessDenied from './AccessDenied';
 
 const UserDashboard = () => {
     const { userRole } = useAuth();
@@ -14,7 +13,7 @@ const UserDashboard = () => {
             case 'admin':
                 return <AdminDashboard />;
             case 'customer':
-                return <AccessDenied />;
+                return <div>Access Denied</div>;
         }
     };
     return (

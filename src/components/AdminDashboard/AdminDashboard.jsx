@@ -339,7 +339,7 @@ const AdminDashboard = () => {
               <div className="form-group">
                 <label htmlFor="departure-time">Departure Time:</label>
                 <input
-                  type="datetime-local"
+                  type="time"
                   id="departure-time"
                   value={busDetails.departure_time}
                   onChange={(e) => setBusDetails({ ...busDetails, departure_time: e.target.value })}
@@ -349,7 +349,7 @@ const AdminDashboard = () => {
               <div className="form-group">
                 <label htmlFor="arrival-time">Arrival Time:</label>
                 <input
-                  type="depaturetime-local"
+                  type="time"
                   id="arrival-time"
                   value={busDetails.arrival_time}
                   onChange={(e) => setBusDetails({ ...busDetails, arrival_time: e.target.value })}
