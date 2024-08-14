@@ -12,6 +12,8 @@ import BookTickets from './components/BookTickets/BookTickets'; // Import BookTi
 import UserDashboard from './components/home/Dashboard';
 import TermsAndConditions from './components/Termsand Conditions/TermsAndConditions';
 import PrivacyPolicy from './components/Policy/PrivacyPolicy';
+import DriverDashboard from './components/DriverDashboard/DriverDashboard';
+
 
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
           {/* <Route path="home" element={<AdminDashboard/>} /> */}
         </Route>
         <Route path="home" element={<DriverDashboard/>} />
+        
+
       </Routes>
     </Router>
   );
