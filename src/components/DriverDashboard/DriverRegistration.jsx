@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './DriverRegistration.css'
+import './DriverRegistration.css';
 
 const DriverRegistration = () => {
   const [driverDetails, setDriverDetails] = useState({
@@ -35,7 +35,7 @@ const DriverRegistration = () => {
   };
 
   return (
-    <div>
+    <div className="driver-registration-container">
       <h2>Driver Registration</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -82,9 +82,9 @@ const DriverRegistration = () => {
             required
           />
         </div>
-        <button type="submit">Register Driver</button>
+        <button type="submit" className="submit-button">Register Driver</button>
       </form>
-      {responseMessage && <p>{responseMessage}</p>}
+      {responseMessage && <p className="response-message">{responseMessage}</p>}
     </div>
   );
 };

@@ -1,55 +1,56 @@
-.admin-registration-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 2rem;
+.driver-registration-container {
     background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-  }
-  
-  .admin-registration-container h2 {
+    max-width: 500px;
+    margin: 10rem auto;
+    font-family: Arial, sans-serif;
+}
+
+.driver-registration-container h2 {
     color: maroon;
-    margin-bottom: 1.5rem;
     text-align: center;
-  }
-  
-  .form-group {
     margin-bottom: 1rem;
-  }
-  
-  .form-group label {
-    display: block;
+}
+
+.driver-registration-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.driver-registration-container label {
+    color: maroon;
     margin-bottom: 0.5rem;
     font-weight: bold;
-  }
-  
-  .form-group input {
-    width: 100%;
+}
+
+.driver-registration-container input {
     padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .submit-button {
-    background-color: brown;
-    color: #fff;
-    border: none;
-    padding: 0.75rem;
-    width: 100%;
-    border-radius: 5px;
-    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     font-size: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .submit-button:hover {
-    background-color: #a30000;
-  }
-  
-  .response-message {
-    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.driver-registration-container .submit-button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: white;
+    background-color: brown;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.driver-registration-container .submit-button:hover {
+    background-color: brown;
+}
+
+.driver-registration-container .response-message {
+    color: maroon;
     text-align: center;
-    font-weight: bold;
-    color: green;
-  }
-  
+    margin-top: 1rem;
+}

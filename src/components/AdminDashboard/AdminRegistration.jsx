@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './AdminRegistration.css'; 
 
 const AdminRegistration = () => {
   const [adminDetails, setAdminDetails] = useState({
@@ -33,7 +34,7 @@ const AdminRegistration = () => {
   };
 
   return (
-    <div> 
+    <div className="admin-registration-container">
       <h2>Admin Registration</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -69,9 +70,9 @@ const AdminRegistration = () => {
             required
           />
         </div>
-        <button type="submit">Register Admin</button>
+        <button type="submit" className="submit-button">Register Admin</button>
       </form>
-      {responseMessage && <p>{responseMessage}</p>}
+      {responseMessage && <p className="response-message">{responseMessage}</p>}
     </div>
   );
 };
