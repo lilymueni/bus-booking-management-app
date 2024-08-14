@@ -15,6 +15,7 @@ import PrivacyPolicy from './components/Policy/PrivacyPolicy';
 import DriverDashboard from './components/DriverDashboard/DriverDashboard';
 
 
+
 function App() {
   return (
     <Router>
@@ -33,6 +34,8 @@ function App() {
           {/* <Route path="home" element={<AdminDashboard/>} /> */}
         </Route>
         <Route path="home" element={<DriverDashboard/>} />
+        
+
       </Routes>
     </Router>
   );
