@@ -1,137 +1,166 @@
-/* General Styles */
-.container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-  
-  .navbar {
-    background-color: rgb(0, 123, 255); /* Blue Header */
-    color: #802126;
-    padding: 1rem;
-  }
-  
-  .navbar h2 {
-    margin: 0;
-  }
-  
-  .navbar ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .navbar li {
-    cursor: pointer;
-  }
-  
-  .navbar li:hover {
-    text-decoration: underline;
-  }
-  
-  /* Content Section */
-  .content {
-    flex: 1;
-    padding: 2rem;
-    background-color: #f8f9fa; 
-  }
-  
-  h1, h2, h3 {
-    margin-bottom: 1rem;
-  }
-  
-  /* Forms */
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-  }
-  
-  .form-group input {
-    width: 15%;
-    padding: 0.5rem;
-    border: 1px solid #0464c5;
-    border-radius: 10px;
-  }
-  
-  .submit-button {
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Lists */
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    background-color: #fff;
-    border: 1px solid #0677e7;
-    border-radius: 100px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  li strong {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  
-  @media (max-width: 768px) {
-    .navbar ul {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .navbar li {
-      margin-bottom: 0.5rem;
-    }
-  }
-  
-  .submit-button:hover {
-    background-color: #06580d;
-  }
-  
-  .bus-list {
-    margin-top: 1rem;
-  }
-  
-  .bus-list ul {
-    list-style: no;
-    padding: 10px;
-    width: 70%;
-
-  }
-  
-  .bus-list li {
-    padding: 0.6rem;
-  }
-  /* DriverDashboard.css */
-
-.notification {
-  background-color: #dff0d8;
-  color: #3c763d;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 20px;
+/* Navbar Styles */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: powderblue; /* Updated background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
 }
 
-.notification.error {
-  background-color: #f2dede;
-  color: #a94442;
+.navbar {
+  background-color: rgb(0, 123, 255); /* Blue Header */
+  color: #802126;
+  padding: 1rem;
+}
+
+.navbar h2 {
+  margin: 0;
+}
+
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  text-align: right;
+}
+
+.navbar-button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: black; /* Text color for buttons */
+  background-color: blue; /* Background color for buttons */
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: end;
+}
+
+.navbar-button:hover {
+  background-color: blue; /* Slightly darker shade for button hover effect */
+}
+
+.welcome-section {
+  padding: 2rem;
+  text-align: center;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.welcome-section h2 {
+  margin: 0 0 1rem;
+}
+
+.welcome-section p {
+  margin: 0;
+}
+.dashboard-section {
+  text-align: center;
+  padding: 3rem; /* Increased padding for a larger section */
+  background-color: #f0f0f0; /* Light background for contrast */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin: 2rem; /* Margin to separate from other content */
+}
+
+.dashboard-section h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem; /* Larger font size for the heading */
+  color: #333; /* Darker color for better readability */
+}
+
+.dashboard-section p {
+  margin-bottom: 2rem;
+  font-size: 1.2rem; /* Slightly larger font size for the paragraph */
+  color: #555; /* Medium color for text */
+}
+
+.dashboard-image img {
+  width: 30%;
+  height: auto;
+  border: 3px solid #ddd; /* Thicker border for the image */
+  border-radius: 8px; /* Rounded corners for the image */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the image */
+}
+
+
+/* Form Section Styles */
+.form-section {
+  background-color: #fff; /* White background for forms */
+  padding: 2rem; /* Padding for form content */
+  border-radius: 8px; /* Rounded corners for the form */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  max-width: 500px; /* Max width for form section */
+  margin: 2rem auto; /* Center the form section with margin */
+  font-family: Arial, sans-serif; /* Font for the form */
+}
+
+.form-section h2 {
+  color: maroon; /* Heading color */
+  text-align: center; /* Center align heading */
+  margin-bottom: 1rem; /* Margin below heading */
+}
+
+.form-section form {
+  display: flex; /* Flexbox for form layout */
+  flex-direction: column; /* Column layout for form elements */
+}
+
+.form-group {
+  margin-bottom: 1rem; /* Margin for form groups */
+}
+
+.form-group label {
+  color: maroon; /* Label color */
+  margin-bottom: 0.5rem; /* Margin below label */
+  font-weight: bold; /* Bold font for label */
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.5rem; /* Padding inside inputs and textareas */
+  border: 1px solid #ddd; /* Border color */
+  border-radius: 8px; /* Rounded corners for inputs and textareas */
+  font-size: 1rem; /* Font size */
+  margin-bottom: 1rem; /* Margin below inputs and textareas */
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  text-align: left; /* Align text to the left */
+}
+
+.form-group textarea {
+  resize: vertical; /* Allow vertical resizing for textarea */
+  min-height: 100px; /* Minimum height for textarea */
+}
+
+.submit-button {
+  padding: 0.75rem; /* Padding inside the button */
+  font-size: 1rem; /* Font size for button text */
+  color: white; /* Text color for button */
+  background-color: brown; /* Background color for button */
+  border: none; /* Remove border */
+  border-radius: 8px; /* Rounded corners for button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.submit-button:hover {
+  background-color: darkred; /* Darker color on hover */
+}
+
+/* Bus List Styles */
+.bus-list {
+  margin-top: 1rem;
+}
+
+.bus-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bus-list li {
+  margin-bottom: 0.5rem;
 }
