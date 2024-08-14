@@ -136,7 +136,7 @@ const HomePageLayout = () => {
     <span> || </span>
     <button 
       className="footer-button" 
-      onClick={() => window.location.href = '/policy'}>
+      onClick={() => window.location.href = '/privacy-policy'}>
       Policy
     </button>
   </div>

@@ -1,0 +1,57 @@
+.admin-registration-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 10rem auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .admin-registration-container h2 {
+    color: maroon;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .admin-registration-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .admin-registration-container label {
+    color: maroon;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .admin-registration-container input {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  
+  .admin-registration-container .submit-button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: white;
+    background-color: brown;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .admin-registration-container .submit-button:hover {
+    background-color: brown;
+  }
+  
+  .admin-registration-container .response-message {
+    color: maroon;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  

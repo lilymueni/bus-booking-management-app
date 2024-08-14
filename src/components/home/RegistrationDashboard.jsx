@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import DriverDashboard from '../DriverDashboard/DriverDashboard';
-import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import AdminRegistration from '../AdminDashboard/AdminRegistration';
+import DriverRegistration from '../DriverDashboard/DriverRegistration';
 import AccessDenied from './AccessDenied';
 
-const UserDashboard = () => {
+const RegistrationDashboard = () => {
     const { userRole } = useAuth();
 
     const renderContent = () => {
         switch (userRole) {
             case 'driver':
-                return <DriverDashboard />;
+                return <DriverRegistration />;
             case 'admin':
-                return <AdminDashboard />;
+                return <AdminRegistration />;
             case 'customer':
                 return <AccessDenied />;
         }
@@ -26,4 +26,4 @@ const UserDashboard = () => {
     );
 };
 
-export default UserDashboard;
+export default RegistrationDashboard;
