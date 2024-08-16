@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './AdminDashboard.css';
+import images from './images.jpeg';
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -197,7 +198,8 @@ const AdminDashboard = () => {
   return (
     <div>
       <div className="navbar">
-        <h2>Admin Dashboard</h2>
+          <img src={images} alt="TransitWise Logo" className="navbar-logo" />
+          <h2>TransitWise</h2>
         <ul>
           <li onClick={() => handleNavClick('dashboard')}>Dashboard</li>
           <li onClick={() => handleNavClick('manageBuses')}>Manage Buses</li>
@@ -207,6 +209,15 @@ const AdminDashboard = () => {
       </div>
 
       <div className="content">
+        {/* Dashboard Welcome Section */}
+        {activeSection === 'dashboard' && (
+          <div className="welcome-section">
+            <h2>Welcome to the Admin Dashboard</h2>
+            <p>Manage your buses, users, and more from here.</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAcz4tqRNcTDlWl_ylrQ2Ph7osdYPpPX0TEhADKe-CwUPpVXkJXONAooa34ixUY-Q_fyc&usqp=CAU" alt="Admin Welcome" className="welcome-image" />
+          </div>
+        )}
+
         {/* Bus Form Section */}
         {activeSection === 'addBus' && (
           <div className="form-section">
@@ -257,16 +268,16 @@ const AdminDashboard = () => {
                     <td>{bus.number_of_seats}</td>
                     <td>{bus.departure_from} at {bus.departure_time}</td>
                     <td>{bus.arrival_to} at {bus.arrival_time}</td>
-                    <td>${bus.price_per_seat}</td>
+                    <td>{bus.price_per_seat}</td>
                     <td>
-                      <button className="navbar-button" onClick={() => handleEditBus(bus.id)}>Edit</button>
-                      <button className="navbar-button" onClick={() => handleDeleteBus(bus.id)}>Delete</button>
-                      <button className="navbar-button" onClick={handleAddBusButtonClick}>Add Bus</button>
+                      <button onClick={() => handleEditBus(bus.id)}>Edit</button>
+                      <button onClick={() => handleDeleteBus(bus.id)}>Delete</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            <button onClick={handleAddBusButtonClick} className="add-bus-button">Add New Bus</button>
           </div>
         )}
 
@@ -274,68 +285,33 @@ const AdminDashboard = () => {
         {activeSection === 'manageUsers' && (
           <div className="user-management-section">
             <h2>Manage Users</h2>
+            
+
             <table className="user-table">
               <thead>
                 <tr>
+                  <th>ID</th>
+
                   <th>Email</th>
                   <th>Username</th>
-                  <th>Actions</th>
+                  
                 </tr>
               </thead>
               <tbody>
                 {users.map(user => (
                   <tr key={user.id_number}>
+                    <td>{user.id}</td>
                     <td>{user.email}</td>
                     <td>{user.username}</td>
-                    <td>
-                      <button className="navbar-button" onClick={() => {
-                        setUserDetails(user);
-                        setIsUserEditing(true);
-                        setActiveSection('addUser');
-                      }}>Edit</button>
-                      <button className="navbar-button" onClick={() => handleDeleteUser(user.id_number)}>Delete</button>
-                    </td>
+                    
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         )}
-
-        {/* User Form Section */}
-        {activeSection === 'addUser' && (
-          <div className="form-section">
-            <h2>{isUserEditing ? 'Edit User' : 'Add New User'}</h2>
-            <form onSubmit={isUserEditing ? handleUpdateUser : handleAddUser}>
-              <div className="form-group">
-                <label htmlFor="email">Email:</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={userDetails.email}
-                  onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="username">Username:</label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  value={userDetails.username}
-                  onChange={(e) => setUserDetails({ ...userDetails, username: e.target.value })}
-                  required
-                />
-              </div>
-              <button type="submit" className="submit-button">{isUserEditing ? 'Update User' : 'Add User'}</button>
-            </form>
-            {responseMessage && <p>{responseMessage}</p>}
-          </div>
-        )}
       </div>
-      
+
       <ToastContainer />
     </div>
   );

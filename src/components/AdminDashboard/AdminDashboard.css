@@ -68,6 +68,37 @@ body {
 .navbar ul li ul li:hover {
     text-decoration: underline;
 }
+/* Welcome section styling */
+.welcome-section {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.welcome-section h2 {
+    font-size: 2rem;
+    color: black;
+    margin-bottom: 1rem;
+}
+
+.welcome-section p {
+    font-size: 1.2rem;
+    color: black;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-image {
+    width: 50%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+    filter: brightness(1.1) contrast(1.1); /* Slightly increases brightness and contrast for clarity */
+}
+
+
 
 .content {
     margin-top: 100px; /* Adjusted space for the fixed navbar */

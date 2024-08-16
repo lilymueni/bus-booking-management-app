@@ -51,7 +51,7 @@ const BookTickets = () => {
       setSeatError(false);
       setAvailableSeats([]);
 
-      const response = await axios.get('http://127.0.0.1:5555/seats', {
+      const response = await axios.get('https://bus-booking-management-system1.onrender.com/seats', {
         params: { 
           bus_id: busId,
           status: 'available'
@@ -84,7 +84,7 @@ const BookTickets = () => {
 
   const updateSeatStatus = async (seatId) => {
     try {
-      await axios.patch('http://127.0.0.1:5555/seats', {
+      await axios.patch('https://bus-booking-management-system1.onrender.com/seats', {
         seat_id: seatId, // Updated to use seat_id
         status: 'booked',
       });
@@ -96,7 +96,7 @@ const BookTickets = () => {
   const handleBookTicket = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:5555/bookings', {
+      const response = await axios.post("https://bus-booking-management-system1.onrender.com//bookings", {
         bus_id: selectedBus,
         seat_number: personalDetails.seatNumber,
         name: personalDetails.name,
