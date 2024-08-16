@@ -1,46 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './BookingForm.css';
 
 const BookingForm = () => {
-    const [action, setAction] = useState('');
+    const [ticket, setTicket] = useState('');
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [confirmationMessage, setConfirmationMessage] = useState('');
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        // Retrieve the ticket from local session or storage
+        const storedTicket = sessionStorage.getItem('ticket');
+        if (storedTicket) {
+            setTicket(storedTicket);
+        }
+    }, []);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setFormSubmitted(true);
-    };
 
-    const renderContent = () => {
-        if (formSubmitted) {
-            if (action === 'print') {
-                return <div className="result-message">You have selected to print a ticket.</div>;
-            } else if (action === 'cancel') {
-                return <div className="result-message">You have selected to cancel a booking.</div>;
+        try {
+            const response = await axios.delete('http://127.0.0.1:5555/bookings', {
+                data: { ticket: ticket }  
+            });
+
+            if (response.status === 204) {
+                setConfirmationMessage('Your booking has been successfully canceled.');
+            } else {
+                setConfirmationMessage('There was an error canceling your booking. Please try again.');
             }
+        } catch (error) {
+            console.error('Error canceling booking:', error);
+            setConfirmationMessage('There was an error canceling your booking. Please try again.');
         }
-        return (
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="action">Choose an action:</label>
-                    <select
-                        id="action"
-                        value={action}
-                        onChange={(e) => setAction(e.target.value)}
-                    >
-                        <option value="" disabled>Select an action</option>
-                        <option value="print">Print Ticket</option>
-                        <option value="cancel">Cancel Booking</option>
-                    </select>
-                </div>
-                <button type="submit" className="btn-primary">Submit</button>
-            </form>
-        );
     };
 
     return (
         <div className="booking-container">
-            <h2>Booking Actions</h2>
-            {renderContent()}
+            <h2>Cancel Booking</h2>
+            {formSubmitted ? (
+                <div className="result-message">{confirmationMessage}</div>
+            ) : (
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="ticket">Ticket Number:</label>
+                        <input
+                            type="text"
+                            id="ticket"
+                            value={ticket}
+                            onChange={(e) => setTicket(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="btn-primary">Cancel Booking</button>
+                </form>
+            )}
         </div>
     );
 };

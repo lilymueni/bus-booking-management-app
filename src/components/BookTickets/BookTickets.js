@@ -19,23 +19,26 @@ const BookTickets = () => {
   });
   const [bookingCompleted, setBookingCompleted] = useState(false);
   const [noBusesFound, setNoBusesFound] = useState(false);
+  const [seatError, setSeatError] = useState(false);
+  const [bookingConfirmation, setBookingConfirmation] = useState(null);
 
-  // Handle search for buses based on from, to, and date
   const handleSubmit = async (e) => {
     e.preventDefault();
     setNoBusesFound(false);
     try {
       const response = await axios.get('https://bus-booking-management-system1.onrender.com/buses', {
         params: {
-          from: destinationFrom,
-          to: destinationTo,
-          date,
+          departure_from: destinationFrom,
+          departure_to: destinationTo,
         },
       });
-      if (response.data.length === 0) {
+      const availableBusesData = response.data
+        .filter((bus) => bus.departure_from === destinationFrom && bus.departure_to === destinationTo);
+
+      if (availableBusesData.length === 0) {
         setNoBusesFound(true);
       } else {
-        setBuses(response.data);
+        setBuses(availableBusesData);
       }
     } catch (error) {
       console.error('Error fetching buses:', error);
@@ -43,22 +46,35 @@ const BookTickets = () => {
     }
   };
 
-  // Handle fetching available seats for the selected bus
   const handleBooking = async (busId) => {
     try {
-      const response = await axios.get(`https://bus-booking-management-system1.onrender.com/buses/${busId}/seats`);
-      if (response.data.seats && response.data.seats.length > 0) {
-        setAvailableSeats(response.data.seats);
-        setSelectedBus(busId);
-      } else {
-        console.log('No available seats found.');
+      setSeatError(false);
+      setAvailableSeats([]);
+
+      const response = await axios.get('http://127.0.0.1:5555/seats', {
+        params: { 
+          bus_id: busId,
+          status: 'available'
+        },
+      });
+
+      const allSeats = response.data
+        .filter((seat) => seat.bus_id === busId && seat.status === 'available');
+
+      setAvailableSeats(allSeats);
+
+      if (allSeats.length === 0) {
+        setSeatError(true);
       }
+
+      setSelectedBus(busId);
     } catch (error) {
       console.error('Error fetching seats:', error);
+      setSeatError(true);
+      setAvailableSeats([]);
     }
   };
 
-  // Handle change in personal details form
   const handlePersonalDetailsChange = (e) => {
     setPersonalDetails({
       ...personalDetails,
@@ -66,19 +82,45 @@ const BookTickets = () => {
     });
   };
 
-  // Handle booking the ticket
+  const updateSeatStatus = async (seatId) => {
+    try {
+      await axios.patch('http://127.0.0.1:5555/seats', {
+        seat_id: seatId, // Updated to use seat_id
+        status: 'booked',
+      });
+    } catch (error) {
+      console.error('Error updating seat status:', error);
+    }
+  };
+
   const handleBookTicket = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://bus-booking-management-system1.onrender.com/bookings', {
+      const response = await axios.post('http://127.0.0.1:5555/bookings', {
         bus_id: selectedBus,
         seat_number: personalDetails.seatNumber,
-        personal_details: personalDetails,
+        name: personalDetails.name,
+        idNumber: personalDetails.idNumber,
+        phoneNumber: personalDetails.phoneNumber,
+        status: 'booked',
       });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         setBookingCompleted(true);
-        const updatedSeats = availableSeats.filter(seat => seat.id !== response.data.booked_seat_id);
+        setBookingConfirmation({
+          ticketNumber: response.data.ticket_number,
+          status: response.data.status,
+        });
+
+        // Find the seat ID from the availableSeats
+        const seatToUpdate = availableSeats.find(seat => seat.seat_number === personalDetails.seatNumber);
+        if (seatToUpdate) {
+          // Update seat status after booking
+          await updateSeatStatus(seatToUpdate.id);
+        }
+
+        // Update available seats list
+        const updatedSeats = availableSeats.filter((seat) => seat.seat_number !== personalDetails.seatNumber);
         setAvailableSeats(updatedSeats);
       }
     } catch (error) {
@@ -114,7 +156,6 @@ const BookTickets = () => {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            required
           />
         </label>
         <label>
@@ -154,8 +195,33 @@ const BookTickets = () => {
               <li key={bus.id}>
                 <p>Bus Name: {bus.number_plate}</p>
                 <p>Price: {bus.price_per_seat}</p>
-                <p>Seats Available: {bus.seats_available}</p>
-                <button onClick={() => handleBooking(bus.id)}>View Seats</button>
+                <p>Bus Capacity: {bus.seats_available}</p>
+                <button onClick={() => handleBooking(bus.id)}>View Available Seats</button>
+                {selectedBus === bus.id && (
+                    <div className="seats-grid">
+                        <p>Seats Available: {availableSeats.length}</p> 
+                        <div className="seats-grid">
+                    {seatError ? (
+                        <p>No seats available for this bus.</p>
+                    ) : (
+                        availableSeats.map((seat) => (
+                            <div
+                            key={seat.id}
+                            className={`seat-box ${personalDetails.seatNumber === seat.seat_number ? 'selected' : ''} ${seat.status === 'booked' ? 'booked' : ''}`}
+                            onClick={() =>
+                                seat.status === 'available' && setPersonalDetails({
+                                    ...personalDetails,
+                                    seatNumber: seat.seat_number,
+                                })
+                          }
+                        >
+                          {seat.seat_number}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                    </div>
+                )}
               </li>
             ))}
           </ul>
@@ -195,49 +261,19 @@ const BookTickets = () => {
               required
             />
           </label>
-
-          {availableSeats.length > 0 && (
-            <div className="available-seats">
-              <h3>Available Seats</h3>
-              <ul>
-                {availableSeats.map((seat) => (
-                  <li key={seat.id}>
-                    <input
-                      type="radio"
-                      id={`seat-${seat.id}`}
-                      name="seatNumber"
-                      value={seat.number}
-                      onChange={(e) =>
-                        setPersonalDetails({
-                          ...personalDetails,
-                          seatNumber: e.target.value,
-                        })
-                      }
-                      required
-                    />
-                    <label htmlFor={`seat-${seat.id}`}>{seat.number}</label>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
           <button type="submit">Confirm Booking</button>
         </form>
       )}
 
-      {bookingCompleted && (
+      {bookingCompleted && bookingConfirmation && (
         <div className="booking-confirmation">
           <h3>Booking Completed!</h3>
           <p>Your seat has been successfully booked.</p>
+          <p>Ticket Number: {bookingConfirmation.ticketNumber}</p>
+          <p>Status: {bookingConfirmation.status}</p>
+          <h3><b>TAKE NOTE OF TICKET NUMBER</b></h3>
         </div>
       )}
-
-      {/* New Image Section */}
-      <div className="additional-images">
-        <img src="https://example.com/image1.jpg" alt="Image 1" />
-        <img src="https://example.com/image2.jpg" alt="Image 2" />
-        <img src="https://example.com/image3.jpg" alt="Image 3" />
-      </div>
     </div>
   );
 };
