@@ -165,3 +165,30 @@
     text-decoration: none;
   }
   
+  .seats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as needed */
+    gap: 10px;
+  }
+
+  .seat-box {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .seat-box.selected {
+    background-color: blue;
+    color: white;
+  }
+  
+  .seat-box.booked {
+    background-color: red; /* Default color for booked seats */
+    color: white;
+  }
+  

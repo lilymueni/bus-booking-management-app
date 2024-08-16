@@ -37,9 +37,7 @@ function App() {
         </Route>
         <Route path="driverdashboard" element={<DriverDashboard/>} />
         <Route path="admindashboard" element={<AdminDashboard/>} />
-        
-
-
+        <Route path="home" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );

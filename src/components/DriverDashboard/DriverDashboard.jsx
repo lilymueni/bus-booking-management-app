@@ -40,7 +40,7 @@ const DriverDashboard = () => {
 
   const handleAddBus = async (e) => {
     e.preventDefault();
-
+    
     const newBus = {
       driver_id: busDetails.driver_id,
       number_plate: busDetails.number_plate,
@@ -52,11 +52,35 @@ const DriverDashboard = () => {
       arrival_time: busDetails.arrival_time,
       price_per_seat: busDetails.price_per_seat
     };
-
+    
     try {
+      // Add the bus to the system
       const response = await axios.post('https://bus-booking-management-system1.onrender.com/buses', newBus);
-      console.log('Bus added:', response.data);
-      setBuses([...buses, response.data]);
+      const addedBus = response.data;
+      console.log('Bus added:', addedBus);
+  
+      // Get the bus ID from the response
+      const busId = addedBus.id;
+  
+      // Generate and post seat numbers one by one
+      for (let i = 1; i <= busDetails.number_of_seats; i++) {
+        const seatNumber = `S${i}`;
+        try {
+          await axios.post('http://127.0.0.1:5555/seats', {
+            bus_id: busId,
+            seat_number: seatNumber,
+            status: 'available'
+          });
+          console.log(`Seat ${seatNumber} added successfully.`);
+        } catch (seatError) {
+          console.error(`Error adding seat ${seatNumber}:`, seatError);
+          setResponseMessage(`Error adding seat ${seatNumber}.`);
+          return; // Optionally stop processing if you want to halt on the first error
+        }
+      }
+  
+      // Update state and response message
+      setBuses([...buses, addedBus]);
       setBusDetails({
         driver_id: '',
         number_plate: '',
@@ -67,11 +91,13 @@ const DriverDashboard = () => {
         arrival_time: '',
         price_per_seat: ''
       });
-      setResponseMessage('BUS ADDED SUCCESSFULLY!');
+      setResponseMessage('BUS ADDED SUCCESSFULLY AND SEATS GENERATED!');
     } catch (error) {
       console.error('Error adding bus:', error);
+      setResponseMessage('Error adding bus. Please try again.');
     }
   };
+  
 
   const handleEditBus = async (busId) => {
     try {
