@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: white;
     color: black;
-    /* Ensure that body takes full viewport height */
+    
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -12,20 +12,20 @@ body {
 .navbar {
     background-color: blue;
     width: 100%;
-    padding: 25px 20px; /* Adjusted padding */
+    padding: 25px 20px; 
     position: fixed;
     top: 0;
     left: 0;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Align items to the start */
+    justify-content: flex-start; 
     z-index: 1000;
 }
 
 .navbar h2 {
     color: white;
     margin: 0;
-    margin-right: 80px; /* Space between "Admin Dashboard" and "Buses" */
+    margin-right: 80px; 
 }
 
 .navbar ul {
@@ -33,7 +33,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 50px; /* Adjusted gap between menu items */
+    gap: 50px; 
 }
 
 .navbar ul li {
@@ -68,7 +68,7 @@ body {
 .navbar ul li ul li:hover {
     text-decoration: underline;
 }
-/* Welcome section styling */
+
 .welcome-section {
     background-color: #f9f9f9;
     padding: 2rem;
@@ -94,18 +94,18 @@ body {
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    object-fit: cover; /* Ensures the image covers the area without stretching */
-    filter: brightness(1.1) contrast(1.1); /* Slightly increases brightness and contrast for clarity */
+    object-fit: cover; 
+    filter: brightness(1.1) contrast(1.1); 
 }
 
 
 
 .content {
-    margin-top: 100px; /* Adjusted space for the fixed navbar */
+    margin-top: 100px; 
     padding: 20px;
     background-color: white;
     color: black;
-    text-align: center; /* Center the content horizontally */
+    text-align: center; 
 }
 
 .content h1, .content h2 {
@@ -113,17 +113,17 @@ body {
 }
 
 .content h1 {
-    margin-bottom: 20px; /* Space below the title */
+    margin-bottom: 20px; 
 }
 
 .content h2 {
-    margin-top: 40px; /* Space above section headers like "Recent Activities" */
+    margin-top: 40px; 
 }
 
 .stats {
     display: flex;
-    justify-content: space-between; /* Adjusted spacing between cards */
-    gap: 10px; /* Added gap between cards */
+    justify-content: space-between; 
+    gap: 10px; 
     margin-top: 20px;
 }
 
@@ -132,18 +132,18 @@ body {
     padding: 20px;
     border-radius: 4px;
     text-align: center;
-    width: 30%; /* Adjust width of cards to fit better */
+    width: 30%; 
 }
 
 .form-section {
-    padding: 20px; /* Add padding to the form section */
-    background-color: #f9f9f9; /* Light background for the form box */
-    border: 1px solid #ccc; /* Border to define the box */
-    border-radius: 4px; /* Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    max-width: 500px; /* Set a max width for the form */
-    width: 100%; /* Ensure the form takes up full width of the container */
-    margin: 40px auto; /* Center horizontally with margin auto */
+    padding: 20px; 
+    background-color: #f9f9f9; 
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    max-width: 500px; 
+    width: 100%; 
+    margin: 40px auto; 
 }
 
 /* Form Styles */
@@ -189,7 +189,7 @@ body {
     padding: 2rem;
     border-radius: 8px;
     max-width: 600px;
-    margin: 20vh auto; /* Centered vertically with margin */
+    margin: 20vh auto; 
 }
 
 .search-form, .details-form {

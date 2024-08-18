@@ -94,30 +94,7 @@ const HomePageLayout = () => {
   </div>
 </section>
 
-  {/* <section className="booking-form">
-  <h1> Hasssle-Free Booking...</h1>
-  <h2>Book, Pay, Travel</h2>
-  <form>
-    <label>
-      From:
-      <input type="text" name="from" placeholder="Starting Point" />
-    </label>
-    <label>
-      To:
-      <input type="text" name="to" placeholder="Destination" />
-    </label>
-    <label>
-      Date:
-      <input type="date" name="date" />
-    </label>
-    <label>
-      Search:
-      <input type="text" name="search" placeholder="Search Buses" />
-    </label>
-    <button type="submit">Search</button>
-  </form>
-</section> */}
-
+  
 <section id="about-us" className="about-us">
         <h2>About Us</h2>
         <p>TransitWise is committed to making your travel experience seamless and enjoyable. We offer a range of services to help you book, pay, and travel with ease. Our platform is designed with your convenience in mind, ensuring that you have the best journey possible. Learn more about our features and how we can help you get where you need to go. We strive to provide exceptional customer service and support, ensuring your needs are met every step of the way. Our user-friendly interface makes it easy to plan and manage your trips efficiently. With TransitWise, you can travel with confidence, knowing that we prioritize your safety and comfort.</p>
