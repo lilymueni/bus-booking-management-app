@@ -10,7 +10,7 @@ export function useAuth() {
 
 // Function to determine user role based on email suffix
 const getUserRole = (email) => {
-  if (email.endsWith('.admin@gmail.com')) {
+  if (email.endsWith('transitewise.admin@gmail.com')) {
     return 'admin';
   } else if (email.endsWith('.driver@gmail.com')) {
     return 'driver';
