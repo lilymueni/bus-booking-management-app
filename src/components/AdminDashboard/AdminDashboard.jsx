@@ -155,6 +155,7 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = () => {
+    axios.delete('https://bus-booking-management-system1.onrender.com/logout');
     localStorage.removeItem('authToken');
     sessionStorage.removeItem('userSession');
     document.cookie = 'authToken=; Max-Age=0; path=/;';
