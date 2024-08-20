@@ -4,6 +4,7 @@ import AdminRegistration from '../AdminDashboard/AdminRegistration';
 import DriverRegistration from '../DriverDashboard/DriverRegistration';
 import AccessDenied from './AccessDenied';
 
+
 const RegistrationDashboard = () => {
     const { userRole } = useAuth();
 
@@ -15,6 +16,8 @@ const RegistrationDashboard = () => {
                 return <AdminRegistration />;
             case 'customer':
                 return <AccessDenied />;
+            default:
+                return <AccessDenied />    
         }
     };
     return (
