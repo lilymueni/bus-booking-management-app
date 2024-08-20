@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
-import { Link, useNavigate} from 'react-router-dom'; 
-import { useAuth } from '../../contexts/AuthContext'; // Ensure this path is correct
-import { doSignInWithEmailAndPassword } from '../../../firebase/Auth';
+import { Link, useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 import './login.css';
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
-  const { userLoggedIn } = useAuth();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -21,17 +16,12 @@ const Login = () => {
     if (!isLoggingIn) {
       setIsLoggingIn(true);
       try {
-        // Authenticate with Firebase
-        const userCredential = await doSignInWithEmailAndPassword(email, password);
-        const user = userCredential.user;
-        const localId = user.uid;
-
         // Authenticate user with backend
         await axios.post('https://bus-booking-management-system1.onrender.com/login', { 
           email: email,
-          uid: localId
+          password: password
         });
-        
+
         navigate('/home');
       } catch (err) {
         setErrorMessage('Failed to log in');
@@ -39,10 +29,6 @@ const Login = () => {
       }
     }
   };
-
-  // if (userLoggedIn) {
-  //   return <Navigate to="/" replace />;
-  // }
 
   return (
     <div className="auth-page">

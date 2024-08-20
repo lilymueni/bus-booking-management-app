@@ -13,7 +13,7 @@ const ReviewForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://bus-booking-management-system1.onrender.com/reviews', {
+            await axios.post('https://bus-booking-management-system1.onrender.com/reviews', {
                 name,
                 email,
                 review,
@@ -62,7 +62,7 @@ const ReviewForm = () => {
                         {[1, 2, 3, 4, 5].map((star) => (
                             <span
                                 key={star}
-                                className={`star ${rating >= star ? 'selected' : ''}`}
+                                className={rating >= star ? 'selected' : ''}
                                 onClick={() => handleRatingChange(star)}
                             >
                                 &#9733;

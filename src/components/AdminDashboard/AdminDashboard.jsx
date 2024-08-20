@@ -20,8 +20,7 @@ const AdminDashboard = () => {
     price_per_seat: ''
   });
 
-  const [setIsEditing] = useState(false);
-
+  const [isEditing, setIsEditing] = useState(false); // Corrected useState for isEditing
 
   // User management states
   const [users, setUsers] = useState([]);
@@ -74,7 +73,16 @@ const AdminDashboard = () => {
       console.error('Error fetching reviews:', error);
     }
   };
-  
+
+  const fetchContacts = async () => {
+    try {
+      const response = await axios.get('https://bus-booking-management-system1.onrender.com/contact');
+      setContacts(response.data);
+    } catch (error) {
+      console.error('Error fetching contacts:', error);
+    }
+  };
+
   const handleEditBus = (busId) => {
     const bus = buses.find(b => b.id === busId);
     if (bus) {
@@ -100,53 +108,14 @@ const AdminDashboard = () => {
     setActiveSection('addBus');
   };
 
-
-  // const handleUpdateBus = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await axios.patch('https://bus-booking-management-system1.onrender.com/buses/${busDetails.id}', busDetails);
-  //     toast.success('Bus updated successfully!');
-  //     fetchBuses();
-  //     setBusDetails({
-  //       driver_id: '',
-  //       number_plate: '',
-  //       number_of_seats: '',
-  //       departure_from: '',
-  //       departure_to: '',
-  //       departure_time: '',
-  //       arrival_time: '',
-  //       price_per_seat: ''
-  //     });
-  //     setIsEditing(false);
-  //     setActiveSection('dashboard');
-  //   } catch (error) {
-  //     console.error('Error updating bus:', error);
-  //     toast.error('Error updating bus');
-  //   }
-  // };
-
-  
   const handleDeleteBus = async (busId) => {
     try {
-      await axios.delete('https://bus-booking-management-system1.onrender.com/buses/${busId}');
+      await axios.delete(`https://bus-booking-management-system1.onrender.com/buses/${busId}`);
       toast.success('Bus deleted successfully!');
-      fetchBookings();
-      fetchBuses();
-      fetchContacts();
-      fetchUsers();
-      fetchReviews();
+      fetchBuses(); // Refresh buses list after deletion
     } catch (error) {
       console.error('Error deleting bus:', error.response ? error.response.data : error.message);
-      toast.error('Error deleting bus:', error.response ? error.response.data.error : error.message);
-    }
-  };
-
-  const fetchContacts = async () => {
-    try {
-      const response = await axios.get('https://bus-booking-management-system1.onrender.com/contact');
-      setContacts(response.data);
-    } catch (error) {
-      console.error('Error fetching contacts:', error);
+      toast.error(error.response ? error.response.data.error : error.message);
     }
   };
 
@@ -162,39 +131,6 @@ const AdminDashboard = () => {
     navigate('/login');
   };
 
-  // const handleDeleteBooking = async (bookingId, seatId) => {
-  //   try {
-  //     await axios.delete(`https://bus-booking-management-system1.onrender.com/bookings/${bookingId}`);
-  //     toast.success('Booking deleted successfully!');
-
-  //     // Update seat status after booking deletion
-  //     await updateSeatStatus(seatId);
-
-  //     // Refresh data after deleting the booking
-  //     fetchBookings();
-  //     fetchBuses();
-  //     fetchContacts();
-  //     fetchUsers();
-  //     fetchReviews();
-  //   } catch (error) {
-  //     console.error('Error deleting booking:', error);
-  //     toast.error('Error deleting booking');
-  //   }
-  // };
-
-  // const updateSeatStatus = async (seatId) => {
-  //   try {
-  //     await axios.patch(`https://bus-booking-management-system1.onrender.com/seats}`, {
-  //       seat_id: seatId,
-  //       status: 'available'
-  //     });
-  //     toast.success('Seat status updated successfully!');
-  //   } catch (error) {
-  //     console.error('Error updating seat status:', error);
-  //     toast.error('Error updating seat status');
-  //   }
-  // };
-
   return (
     <div>
       <div className="navbar">
@@ -207,7 +143,7 @@ const AdminDashboard = () => {
           <li onClick={() => handleNavClick('manageBookings')}>Manage Bookings</li>
           <li onClick={() => handleNavClick('manageReviews')}>Manage Reviews</li>
           <li onClick={() => handleNavClick('manageContacts')}>Manage Contacts</li>
-          <li onClick={() => handleLogout()}>Logout</li>
+          <li onClick={handleLogout}>Logout</li>
         </ul>
       </div>
 
@@ -222,7 +158,6 @@ const AdminDashboard = () => {
               alt="Admin Welcome"
               className="welcome-image"
             />
-
           </div>
         )}
 
@@ -249,7 +184,7 @@ const AdminDashboard = () => {
                     <td>{bus.number_plate}</td>
                     <td>{bus.number_of_seats}</td>
                     <td>{bus.departure_from} at {bus.departure_time}</td>
-                    <td>{bus.arrival_to} at {bus.arrival_time}</td>
+                    <td>{bus.departure_to} at {bus.arrival_time}</td>
                     <td>{bus.price_per_seat}</td>
                     <td>
                       <button onClick={() => handleEditBus(bus.id)}>Edit</button>
@@ -267,16 +202,12 @@ const AdminDashboard = () => {
         {activeSection === 'manageUsers' && (
           <div className="user-management-section">
             <h2>Manage Users</h2>
-            
-
             <table className="user-table">
               <thead>
                 <tr>
                   <th>ID</th>
-
                   <th>Email</th>
                   <th>Username</th>
-                  
                 </tr>
               </thead>
               <tbody>
@@ -307,7 +238,6 @@ const AdminDashboard = () => {
                   <th>Ticket Number</th>
                   <th>Seats</th>
                   <th>Date</th>
-                  {/* <th>Actions</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -320,13 +250,7 @@ const AdminDashboard = () => {
                     <td>{booking.phoneNumber}</td>
                     <td>{booking.ticket}</td>
                     <td>{booking.seat_number}</td>
-                    <td>{booking.created_at.date}</td>
-                    {/* <td>
-                      <button 
-                        className='delete-button'
-                        onClick={() => handleDeleteBooking(booking.id, booking.seat_id)}
-                        >Delete</button>
-                    </td> */}
+                    <td>{new Date(booking.created_at).toLocaleDateString()}</td>
                   </tr>
                 ))}
               </tbody>
@@ -338,24 +262,24 @@ const AdminDashboard = () => {
         {activeSection === 'manageReviews' && (
           <div className="review-management-section">
             <h2>Manage Reviews</h2>
-            <table className="bus-table">
+            <table className="review-table">
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Email</th>
-                  <th>User</th>
+                  <th>Bus ID</th>
                   <th>Rating</th>
                   <th>Comment</th>
+                  <th>User ID</th>
                 </tr>
               </thead>
               <tbody>
                 {reviews.map(review => (
                   <tr key={review.id}>
                     <td>{review.id}</td>
-                    <td>{review.email}</td>
-                    <td>{review.name}</td>
+                    <td>{review.bus_id}</td>
                     <td>{review.rating}</td>
-                    <td>{review.review}</td>
+                    <td>{review.comment}</td>
+                    <td>{review.user_id}</td>
                   </tr>
                 ))}
               </tbody>
@@ -363,11 +287,11 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        {/* Contact Us Management Section */}
+        {/* Contact Management Section */}
         {activeSection === 'manageContacts' && (
           <div className="contact-management-section">
-            <h2>Manage Contact Us Messages</h2>
-            <table className="bus-table">
+            <h2>Manage Contacts</h2>
+            <table className="contact-table">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -387,6 +311,80 @@ const AdminDashboard = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* Add/Edit Bus Section */}
+        {activeSection === 'addBus' && (
+          <div className="add-bus-section">
+            <h2>{isEditing ? 'Edit Bus' : 'Add New Bus'}</h2>
+            <form>
+              <div className="form-group">
+                <label>Driver ID:</label>
+                <input
+                  type="text"
+                  value={busDetails.driver_id}
+                  onChange={(e) => setBusDetails({ ...busDetails, driver_id: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label>Number Plate:</label>
+                <input
+                  type="text"
+                  value={busDetails.number_plate}
+                  onChange={(e) => setBusDetails({ ...busDetails, number_plate: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label>Number of Seats:</label>
+                <input
+                  type="text"
+                  value={busDetails.number_of_seats}
+                  onChange={(e) => setBusDetails({ ...busDetails, number_of_seats: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label>Departure From:</label>
+                <input
+                  type="text"
+                  value={busDetails.departure_from}
+                  onChange={(e) => setBusDetails({ ...busDetails, departure_from: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label>Departure To:</label>
+                <input
+                  type="text"
+                  value={busDetails.departure_to}
+                  onChange={(e) => setBusDetails({ ...busDetails, departure_to: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label>Departure Time:</label>
+                <input
+                  type="text"
+                  value={busDetails.departure_time}
+                  onChange={(e) => setBusDetails({ ...busDetails, departure_time: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label>Arrival Time:</label>
+                <input
+                  type="text"
+                  value={busDetails.arrival_time}
+                  onChange={(e) => setBusDetails({ ...busDetails, arrival_time: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label>Price per Seat:</label>
+                <input
+                  type="text"
+                  value={busDetails.price_per_seat}
+                  onChange={(e) => setBusDetails({ ...busDetails, price_per_seat: e.target.value })}
+                />
+              </div>
+              <button type="submit">{isEditing ? 'Update Bus' : 'Add Bus'}</button>
+            </form>
           </div>
         )}
       </div>
