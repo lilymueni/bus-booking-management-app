@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 import './login.css';
+import {doSignInWithEmailAndPassword} from "../../../firebase/Auth";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,10 +17,15 @@ const Login = () => {
     if (!isLoggingIn) {
       setIsLoggingIn(true);
       try {
+        // Authenticate with Firebase
+        const userCredential = await doSignInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        const localId = user.uid;
+
         // Authenticate user with backend
         await axios.post('https://bus-booking-management-system1.onrender.com/login', { 
           email: email,
-          password: password
+          uid: localId
         });
 
         navigate('/home');
