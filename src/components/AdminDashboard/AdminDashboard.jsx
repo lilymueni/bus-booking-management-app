@@ -262,24 +262,24 @@ const AdminDashboard = () => {
         {activeSection === 'manageReviews' && (
           <div className="review-management-section">
             <h2>Manage Reviews</h2>
-            <table className="review-table">
+            <table className="bus-table">
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Bus ID</th>
+                  <th>Email</th>
+                  <th>User</th>
                   <th>Rating</th>
                   <th>Comment</th>
-                  <th>User ID</th>
                 </tr>
               </thead>
               <tbody>
                 {reviews.map(review => (
                   <tr key={review.id}>
                     <td>{review.id}</td>
-                    <td>{review.bus_id}</td>
+                    <td>{review.email}</td>
+                    <td>{review.name}</td>
                     <td>{review.rating}</td>
-                    <td>{review.comment}</td>
-                    <td>{review.user_id}</td>
+                    <td>{review.review}</td>
                   </tr>
                 ))}
               </tbody>
@@ -291,7 +291,7 @@ const AdminDashboard = () => {
         {activeSection === 'manageContacts' && (
           <div className="contact-management-section">
             <h2>Manage Contacts</h2>
-            <table className="contact-table">
+            <table className="bus-table">
               <thead>
                 <tr>
                   <th>ID</th>
