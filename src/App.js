@@ -10,7 +10,7 @@ import BookingForm from './components/BookingForm/BookingForm';
 import DriverDashboard from './components/DriverDashboard/DriverDashboard';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard'; 
 import BookTickets from './components/BookTickets/BookTickets';
-
+import UserDashboard from './components/home/Dashboard'
 import TermsAndConditions from './components/Termsand Conditions/TermsAndConditions';
 import PrivacyPolicy from './components/Policy/PrivacyPolicy';
 import RegistrationDashboard from './components/home/RegistrationDashboard';
@@ -37,7 +37,7 @@ function App() {
         </Route>
         <Route path="driverdashboard" element={<DriverDashboard/>} />
         <Route path="admindashboard" element={<AdminDashboard/>} />
-        <Route path="home" element={<AdminDashboard />} />
+        <Route path="dashboard" element={<UserDashboard />} />
       </Routes>
     </Router>
   );

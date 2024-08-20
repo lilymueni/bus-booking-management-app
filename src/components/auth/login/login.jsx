@@ -28,7 +28,7 @@ const Login = () => {
           uid: localId
         });
 
-        navigate('/home');
+        navigate('/dashboard');
       } catch (err) {
         setErrorMessage('Failed to log in');
         setIsLoggingIn(false);
