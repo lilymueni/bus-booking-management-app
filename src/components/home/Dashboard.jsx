@@ -15,8 +15,11 @@ const UserDashboard = () => {
                 return <AdminDashboard />;
             case 'customer':
                 return <AccessDenied />;
+            default:
+                return <AccessDenied />; // Default case added to handle unexpected roles
         }
     };
+
     return (
         <div className="dashboard">
             <div className="content-card">
