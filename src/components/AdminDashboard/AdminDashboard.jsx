@@ -20,7 +20,7 @@ const AdminDashboard = () => {
     price_per_seat: ''
   });
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [setIsEditing] = useState(false);
 
 
   // User management states
@@ -101,29 +101,29 @@ const AdminDashboard = () => {
   };
 
 
-  const handleUpdateBus = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.patch('https://bus-booking-management-system1.onrender.com/buses/${busDetails.id}', busDetails);
-      toast.success('Bus updated successfully!');
-      fetchBuses();
-      setBusDetails({
-        driver_id: '',
-        number_plate: '',
-        number_of_seats: '',
-        departure_from: '',
-        departure_to: '',
-        departure_time: '',
-        arrival_time: '',
-        price_per_seat: ''
-      });
-      setIsEditing(false);
-      setActiveSection('dashboard');
-    } catch (error) {
-      console.error('Error updating bus:', error);
-      toast.error('Error updating bus');
-    }
-  };
+  // const handleUpdateBus = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await axios.patch('https://bus-booking-management-system1.onrender.com/buses/${busDetails.id}', busDetails);
+  //     toast.success('Bus updated successfully!');
+  //     fetchBuses();
+  //     setBusDetails({
+  //       driver_id: '',
+  //       number_plate: '',
+  //       number_of_seats: '',
+  //       departure_from: '',
+  //       departure_to: '',
+  //       departure_time: '',
+  //       arrival_time: '',
+  //       price_per_seat: ''
+  //     });
+  //     setIsEditing(false);
+  //     setActiveSection('dashboard');
+  //   } catch (error) {
+  //     console.error('Error updating bus:', error);
+  //     toast.error('Error updating bus');
+  //   }
+  // };
 
   
   const handleDeleteBus = async (busId) => {
